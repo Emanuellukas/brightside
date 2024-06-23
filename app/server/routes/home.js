@@ -1,7 +1,8 @@
 export default defineEventHandler((event) => {
+  console.log('asdasd', process.env.GN_URL)
   return new Promise( async (res, reject) => {
     try {
-      let data = await $fetch('https://newsapi.org/v2/' + 'top-headlines?sortBy=relevancy&language=pt&apiKey=' + '864aff51218349fc8cd1841a15c4d1ec')
+      let data = await $fetch(process.env.GN_URL + 'top-headlines?sortBy=relevancy&language=pt&apiKey=' + process.env.GN_KEY)
       res(data)
     } catch (error) {
       reject(error)
