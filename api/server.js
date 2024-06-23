@@ -3,15 +3,17 @@ import express from 'express';
 import axios from 'axios';
 import compendium from 'compendium-js'
 import moment from 'moment';
-import firebase, { collections } from './plugins/firebase.js';
+import { config } from 'dotenv';
+
+// import firebase, { collections } from './plugins/firebase.js';
 
 const app = express();
 
-//const gnKey = process.env.GN_KEY
-//const gnUrl = process.env.GN_URL
+const gnKey = process.env.GN_KEY
+const gnUrl = process.env.GN_URL
 
-const gnKey = '864aff51218349fc8cd1841a15c4d1ec'
-const gnUrl = 'https://newsapi.org/v2/'
+// const gnKey = '864aff51218349fc8cd1841a15c4d1ec'
+// const gnUrl = 'https://newsapi.org/v2/'
 
 const today = moment().format('yyy-mm-dd');
 const yesterday = moment().subtract(1, 'days').format('yyy-mm-dd');
@@ -55,11 +57,11 @@ app.get('/analyse', (req, res) => {
     res.json({analysed})
 })
 
-app.post('/store-articles', async (req, res) => {
-    try {
-        let { data } = await collections.LatestArticles.add(req.body)
-        res.json({ msg: 'Funfou', ...data })
-    } catch (error) { console.error(error) }
-})
+// app.post('/store-articles', async (req, res) => {
+//     try {
+//         let { data } = await collections.LatestArticles.add(req.body)
+//         res.json({ msg: 'Funfou', ...data })
+//     } catch (error) { console.error(error) }
+// })
 
 app.listen('4567')
