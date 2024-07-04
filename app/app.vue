@@ -7,7 +7,7 @@
        <svg xmlns="http://www.w3.org/2000/svg"      viewBox="0 0 24 24">
         <path d="M12 0L0 6v12l12-6 12 6V6z"/>
        </svg>
-      </div
+      </div>
     </div>
     <FooterNavbar/>
   </div>
