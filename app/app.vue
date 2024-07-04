@@ -3,6 +3,11 @@
     <HeaderNavbar/>
     <div class="container px-7 py-4 mx-auto">
       <FeedNewsFeed :news="news"/>
+      <div class="curtain">
+       <svg xmlns="http://www.w3.org/2000/svg"      viewBox="0 0 24 24">
+        <path d="M12 0L0 6v12l12-6 12 6V6z"/>
+       </svg>
+      </div
     </div>
     <FooterNavbar/>
   </div>
@@ -43,4 +48,23 @@ html {
 .nuxt-icon svg {
   margin-bottom: 0;
 }
+
+.curtain {
+  width: 100px;
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  fill: #555;
+  transition: transform 0.5s;
+}
+
+.curtain:hover svg {
+  transform: translateY(-50%);
+}
+
 </style>
