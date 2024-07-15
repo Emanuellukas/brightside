@@ -1,9 +1,9 @@
 <template>
-  <div class="p-5 rounded-3xl bg-yellow-100">
-    <p class="text-sm mb-3">
-      {{publishedAt}}
+  <li class="p-7 rounded-3xl bg-yellow-100 shadow-xl border-[#FFF176] mb-4">
+    <p class="text-sm font-semibold mb-3">
+      {{new Date(publishedAt).toLocaleDateString('pt-BR')}}
     </p>
-    <div class="rounded-md py-3 flex justify-between">
+    <div class="rounded-md py-3 flex justify-between mb-3">
       <div class="flex gap-4">
         <div class="inline-block h-8 w-8 rounded-full ring-4 ring-white">
           <img src="../../assets/images/flower-icon-2048x2048-gydxzqnj.png" alt="">
@@ -21,16 +21,16 @@
         Conferir
       </a>
     </div>
-    <p class="conteudo font-semibold truncate md:text-clip hover:text-clip">
+    <h2 class="conteudo md:text-clip hover:text-clip">
       {{ title }}
-    </p>
-    <div class="flex gap-3 justify-end mt-5">
+    </h2>
+    <div class="flex mt-auto gap-3 justify-end">
       <button>like</button>
       <button>save</button>
       <button>share</button>
     </div>
     <slot/>
-  </div>
+  </li>
 </template>
 <script setup lang="js">
 const props = defineProps({

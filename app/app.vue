@@ -1,12 +1,11 @@
 <template>
-  <div class="bg-[#131313]">
+  <div>
     <HeaderNavbar/>
     <div class="container px-7 py-4 mx-auto">
-      <FeedNewsFeed :news="news"/>
-      <div class="curtain">
-       <svg xmlns="http://www.w3.org/2000/svg"      viewBox="0 0 24 24">
-        <path d="M12 0L0 6v12l12-6 12 6V6z"/>
-       </svg>
+      <FeedNewsFeed v-if="!news.loading && news.articles[0]" :news="news"/>
+      <div v-if="news.loading">Carregando</div>
+      <div class="text-red-500 px-8 text-lg" v-if="!news.articles[0]">
+        Talvez eu esteja tendo um problema com o google news
       </div>
     </div>
     <FooterNavbar/>
@@ -22,16 +21,8 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-let loading = false;
-let news = {}
+const news = useNews().value
 
-const init = async () => {
-  loading = true
-  news = await $fetch('/home')
-  loading = false
-}
-
-init()
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playwrite+AU+VIC:wght@100..400&display=swap');
@@ -39,11 +30,12 @@ init()
 /* font-family: "Playwrite AU VIC", cursive;*/
 
 html {
-  background: #111111;
+  background: #81D4FA;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  transition: all 0.3s;
 }
 .nuxt-icon svg {
   margin-bottom: 0;

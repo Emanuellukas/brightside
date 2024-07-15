@@ -39,7 +39,6 @@ app.get('/brasil', async (req, res) => {
 app.get('/category', async (req, res) => {
     try {
         let { data } = await axios.get(gnUrl + `top-headlines?category=${req.query.category}&country=us&apiKey=` + gnKey)
-        console.log(data)
         res.json(data)
     } catch (error) { console.error(error) }
 })

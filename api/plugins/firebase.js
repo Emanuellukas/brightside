@@ -16,13 +16,10 @@ let app = null, db = null, collections = {};
 
 // Initialize Firebase
 async function init() {
-    console.log('iniciado');
     try {
         app = await initializeApp(firebaseConfig);
         db = await getFirestore(app)
         await setCollections(db)
-
-        console.log('db', db);
     } catch (error) {
         console.error(error)
     }
