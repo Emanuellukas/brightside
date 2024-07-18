@@ -1,5 +1,5 @@
 <template>
-  <li class="p-7 rounded-3xl bg-yellow-100 shadow-xl border-[#FFF176] mb-4">
+  <li :class="'p-6 rounded-3xl bg-yellow-100 shadow-xl border-[#FFF176] mb-4 h-[58vh]'">
     <p class="text-sm font-semibold mb-3">
       {{new Date(publishedAt).toLocaleDateString('pt-BR')}}
     </p>
@@ -17,13 +17,18 @@
           </span>
         </div>
       </div>
-      <a :href="url" target="_blank" class="rounded-full text-white bg-slate-900 px-3 py-1">
+      <a :href="url" target="_blank" class="rounded-full font-bold text-slate-900 border-2 border-slate-900 px-3 py-1 hover:bg-orange-400 hover:text-white">
         Conferir
       </a>
     </div>
-    <h2 class="conteudo md:text-clip hover:text-clip">
+    <img v-if="urlToImage" :src="urlToImage" class="rounded-lg mx-auto w-9/12 mb-3">
+    <img v-else src="../../assets/images/logo.png" class="rounded-lg mx-auto w-9/12 mb-3">
+    <h2 class="conteudo text-grayDark md:text-clip hover:text-clip font-semibold mb-2">
       {{ title }}
     </h2>
+    <p class="text-grayDark truncate">
+      {{ description }}
+    </p>
     <div class="flex mt-auto gap-3 justify-end">
       <button>like</button>
       <button>save</button>
@@ -37,7 +42,5 @@ const props = defineProps({
   content: Object
 })
 
-const { author, url, title, publishedAt } = props.content
-
-const published = new Date(publishedAt)
+const { author, url, title, publishedAt, urlToImage, description } = props.content
 </script>

@@ -1,17 +1,21 @@
 <template>
-  <div class="fixed bottom-[-2.5rem] left-[50%] text-white bg-[#FFA726] py-3 h-[10vh] w-full rounded-t-full" 
-    style="transform: translate(-50%, -50%);">
-    <div class="relative flex items-center justify-between w-3/4 mx-auto">
-      <FooterButton @click="getFeedNews()">
+  <div class="absolute flex items-center mx-auto stroke-current bottom-[-2rem] left-[50%] text-white w-10/12 justify-between" 
+    style="transform: translate(-50%, -50%); ">
+    <FooterButton @click="getFeedNews()" class="bg-primary hover:bg-yellowSoft w-1/3 rounded-tl-full rounded-tr-none">
+      <div class="flex justify-center">
         <nuxt-icon name="sun"/>
-      </FooterButton>
-      <FooterButton>
+      </div>
+    </FooterButton>
+    <FooterButton class="bg-primary w-1/3 rounded-none hover:bg-yellowSoft">
+      <div class="flex justify-center">
         <nuxt-icon name="search"/>
-      </FooterButton>
-      <FooterButton>
+      </div>
+    </FooterButton>
+    <FooterButton class="bg-primary w-1/3 rounded-tr-full rounded-tl-none hover:bg-yellowSoft">
+      <div class="flex justify-center">
         <nuxt-icon name="bookmark-o"/>
-      </FooterButton>
-    </div>
+      </div>
+    </FooterButton>
   </div>
 </template>
 <script setup lang="js">
@@ -19,6 +23,9 @@ const news = useNews().value
 
 const getFeedNews = async () => {
   news.loading = true
+
+  startSunriseAnimation()
+  
   const response = await $fetch('/home')
   console.log('response', response)
   news.articles = response.articles.length ? response.articles : [

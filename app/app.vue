@@ -12,6 +12,12 @@
   </div>
 </template>
 <script setup lang="js">
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  getRssNews()
+})
+
 useSeoMeta({
   title: 'Brightside',
   ogTitle: 'Brightside',
@@ -30,7 +36,6 @@ const news = useNews().value
 /* font-family: "Playwrite AU VIC", cursive;*/
 
 html {
-  background: #81D4FA;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
