@@ -2,9 +2,9 @@
   <div>
     <HeaderNavbar/>
     <div class="container px-7 py-4 mx-auto">
-      <FeedNewsFeed v-if="!news.loading && news.articles[0]" :news="news"/>
-      <div v-if="news.loading">Carregando</div>
-      <div class="text-red-500 px-8 text-lg" v-if="!news.articles[0]">
+      <FeedNewsFeed v-if="!loading && useNews().value.articles[0]" :news="useNews().value"/>
+      <div v-if="loading">Carregando {{loading}}</div>
+      <div class="text-red-500 px-8 text-lg" v-if="!useNews().value.articles[0]">
         Talvez eu esteja tendo um problema com o google news
       </div>
     </div>
@@ -14,9 +14,11 @@
 <script setup lang="js">
 import { onMounted } from 'vue'
 
+const { loading } = useNews().value 
+
 onMounted(() => {
   getRssNews()
-})
+});
 
 useSeoMeta({
   title: 'Brightside',
@@ -26,8 +28,6 @@ useSeoMeta({
   ogImage: 'https://example.com/image.png',
   twitterCard: 'summary_large_image',
 })
-
-const news = useNews().value
 
 </script>
 <style>

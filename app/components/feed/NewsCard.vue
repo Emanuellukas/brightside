@@ -17,18 +17,14 @@
           </span>
         </div>
       </div>
-      <a :href="url" target="_blank" class="rounded-full font-bold text-slate-900 border-2 border-slate-900 px-3 py-1 hover:bg-orange-400 hover:text-white">
+      <a :href="link" target="_blank" class="rounded-full font-bold text-slate-900 border-2 border-slate-900 px-3 py-1 hover:bg-orange-400 hover:text-white">
         Conferir
       </a>
     </div>
-    <img v-if="urlToImage" :src="urlToImage" class="rounded-lg mx-auto w-9/12 mb-3">
-    <img v-else src="../../assets/images/logo.png" class="rounded-lg mx-auto w-9/12 mb-3">
     <h2 class="conteudo text-grayDark md:text-clip hover:text-clip font-semibold mb-2">
       {{ title }}
     </h2>
-    <p class="text-grayDark truncate">
-      {{ description }}
-    </p>
+    <p class="text-grayDark description" v-html="description" />
     <div class="flex mt-auto gap-3 justify-end">
       <button>like</button>
       <button>save</button>
@@ -42,5 +38,10 @@ const props = defineProps({
   content: Object
 })
 
-const { author, url, title, publishedAt, urlToImage, description } = props.content
+const { author, link, title, publishedAt, urlToImage, description } = props.content
 </script>
+<style scoped>
+.description img {
+  border-radius: .75rem;
+}
+</style>

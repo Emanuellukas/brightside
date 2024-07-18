@@ -27,7 +27,6 @@ const getFeedNews = async () => {
   startSunriseAnimation()
   
   const response = await $fetch('/home')
-  console.log('response', response)
   news.articles = response.articles.length ? response.articles : [
     {
       source: {
