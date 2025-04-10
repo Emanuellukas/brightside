@@ -4,8 +4,9 @@
     <div class="container px-7 py-4 mx-auto">
       <FeedNewsFeed v-if="!loading && useNews().value.articles[0]" :news="useNews().value"/>
       <div v-if="loading">Carregando {{loading}}</div>
-      <div class="text-red-500 px-8 text-lg" v-if="!useNews().value.articles[0]">
-        Talvez eu esteja tendo um problema com o google news
+      <div class="text-red-500 px-8 text-lg" 
+        v-if="!useNews().value.articles[0]">
+        Talvez eu esteja tendo um problema com minhas fontes, aguarde um 
       </div>
     </div>
     <FooterNavbar/>
@@ -17,7 +18,11 @@ import { onMounted } from 'vue'
 const { loading } = useNews().value 
 
 onMounted(() => {
-  getRssNews()
+  try {
+    getServerRssNews('mundo')
+  } catch(e) {
+    console.error('Erro ao pegar Rss', e)
+  }
 });
 
 useSeoMeta({
@@ -41,6 +46,7 @@ html {
   font-weight: 400;
   font-style: normal;
   transition: all 0.3s;
+  max-width: 100vw;
 }
 .nuxt-icon svg {
   margin-bottom: 0;

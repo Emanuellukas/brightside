@@ -11,78 +11,134 @@ let articleCount = 0;
 const articlesArray = []
 
 // Função para converter XML em JSON
-export const  xmlToJson = (xml) => {
+export const xmlToJson = (xml) => {
   const obj = {};
 
-	// Processar elementos filhos
   if (xml.hasChildNodes()) {
-    for (let i = 0; i < xml.childNodes.length; i++) {
-      const item = xml.childNodes.item(i);
-      const { nodeName } = item;
+    for (const child of xml.childNodes) {
+      const { nodeName } = child;
 
-      if (typeof (obj[nodeName]) === "undefined") {
-        obj[nodeName] = xmlToJson(item);
+      if (!obj[nodeName]) {
+        obj[nodeName] = xmlToJson(child);
       } else {
-        if (typeof (obj[nodeName].push) === "undefined") {
-          const old = obj[nodeName];
-          obj[nodeName] = [];
-          obj[nodeName].push(old);
+        if (!Array.isArray(obj[nodeName])) {
+          obj[nodeName] = [obj[nodeName]];
         }
 
         if (nodeName === 'item') {
-					const article = xmlToJson(item)
-					obj[nodeName].push(article)
-					articlesArray.push(article)
-					articleCount++
-				} else obj[nodeName].push(xmlToJson(item))
+          const article = xmlToJson(child);
+          articlesArray.push(article);
+          articleCount++;
+        } else {
+          obj[nodeName].push(xmlToJson(child));
+        }
       }
     }
   }
 
-	switch(xml.nodeType) {
-		case 1:
-			if (xml.attributes.length > 0) {
-				obj["@attributes"] = {};
-				for (let j = 0; j < xml.attributes.length; j++) {
-					const attribute = xml.attributes.item(j);
-					obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-				}
-			}
-			break;
-		case 3:
-			obj.nodeValue = xml.nodeValue;
-			if (!articlesArray.length) break
+  switch (xml.nodeType) {
+    case 1: {
+      const attrs = xml.attributes;
+      if (attrs?.length) {
+        obj["@attributes"] = {};
+        for (const attr of attrs) {
+          obj["@attributes"][attr.nodeName] = attr.nodeValue;
+        }
+      }
+      break;
+    }
 
-			if (!['url', 'link'].includes(xml.parentNode.nodeName)) break
+    case 3: {
+      obj.nodeValue = xml.nodeValue;
 
-			articlesArray[articleCount].link = xml.parentNode.nodeName === 'link' ? xml.nodeValue : ''
-			articlesArray[articleCount].urlToImage = xml.parentNode.nodeName === 'url' ? xml.nodeValue : undefined
-		case 4:
-			if (articlesArray.length) {
-				if (xml.parentNode.nodeName === 'title')
-					articlesArray[articleCount] = {...articlesArray[articleCount], title: xml.nodeValue}
-	
-				if (xml.parentNode.nodeName === 'description')
-					articlesArray[articleCount] = {...articlesArray[articleCount], description: xml.nodeValue}
-			}
-			break;
-	}
+      if (
+        articlesArray.length &&
+        ['url', 'link'].includes(xml.parentNode?.nodeName)
+      ) {
+        const currentArticle = articlesArray[articleCount];
+        if (xml.parentNode.nodeName === 'link') currentArticle.link = xml.nodeValue;
+        if (xml.parentNode.nodeName === 'url') currentArticle.urlToImage = xml.nodeValue;
+      }
+      break;
+    }
+
+    case 4: {
+      if (!articlesArray.length) break;
+
+      const currentArticle = articlesArray[articleCount];
+      const { nodeName } = xml.parentNode || {};
+
+      if (nodeName === 'title') {
+        articlesArray[articleCount] = { ...currentArticle, title: xml.nodeValue };
+      }
+
+      if (nodeName === 'description') {
+        articlesArray[articleCount] = { ...currentArticle, description: xml.nodeValue };
+      }
+      break;
+    }
+  }
 
   return obj;
-}
+};
 
-export const getRssNews = async () => {
+
+export const getServerRssNews = async (category) => {
 	useNews().value.loading = true
 
-	$fetch('/xmlRss', {params: { alou: true }})
+	if(hasCategoryXml(category)) {
+		const {data} = JSON.parse(localStorage.getItem(`data-${category}`))
+		useNews().value = {...useNews().value, articles: data, loading: false};
+		return
+	}
+
+	$fetch('/xmlRss', { params: { category }})
   .then(xmlString => {
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+		console.log('xmlDoc', xmlDoc)
     xmlToJson(xmlDoc);
 		useNews().value = {...useNews().value, articles: articlesArray, loading: false};
+		saveCategoryXml(category, articlesArray)
   })
   .catch(error => {
 		alert(errorMessage, error)
 		console.error(errorMessage, error)
 	});
+}
+
+export const getRssNews = async () => {
+	useNews().value.loading = true
+
+	const RssFeedEmitter = require('rss-feed-emitter');
+	const feeder = new RssFeedEmitter();
+	console.log('feeder', feeder)
+}
+
+const saveCategoryXml = (category, content) => {
+	const payload = {data: content, timestamp: Date.now()}
+	localStorage.setItem(`data-${category}`, JSON.stringify(payload))
+}
+
+const hasCategoryXml = (category) => {
+	const item = localStorage.getItem(`data-${category}`);
+  if (!item) return null;
+
+  try {
+    const { data, timestamp } = JSON.parse(item);
+    const duasHoras = 2 * 60 * 60 * 1000; // 2 horas em milissegundos
+
+    if (Date.now() - timestamp <= duasHoras) {
+      return data;
+    }
+
+		localStorage.removeItem(`data-${category}`);
+		return null;
+  } catch (e) {
+    console.error('Erro ao ler do localStorage:', e);
+    return null;
+  }
+	
+	return JSON.parse(localStorage.getItem(`data-${category}`))
 }

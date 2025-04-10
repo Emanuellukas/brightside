@@ -13,7 +13,10 @@ const props = defineProps({
   news: Object
 })
 
-const articles = props.news?.articles
+const articles = props.news?.articles.filter(value => {
+  console.log('filter', value.title.length)
+  return value.title.length
+})
 
 const list = ref(null)
 const threshold = 400
@@ -134,8 +137,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
-
 svg{transition: transform 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
 html:has(.like){
