@@ -25,7 +25,6 @@ const getFeedNews = async () => {
   news.loading = true
 
   startSunriseAnimation()
-  
-  getServerRssNews('tech')
+  getServerRssNews('games') 
 }
 </script>

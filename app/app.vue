@@ -1,9 +1,11 @@
 <template>
-  <div>
+  <div class="">
     <HeaderNavbar/>
     <div class="container px-7 py-4 mx-auto">
       <FeedNewsFeed v-if="!loading && useNews().value.articles[0]" :news="useNews().value"/>
-      <div v-if="loading">Carregando {{loading}}</div>
+      <div v-if="loading">
+        <UtilsLoader/>
+      </div>
       <div class="text-red-500 px-8 text-lg" 
         v-if="!useNews().value.articles[0]">
         Talvez eu esteja tendo um problema com minhas fontes, aguarde um 
@@ -19,7 +21,7 @@ const { loading } = useNews().value
 
 onMounted(() => {
   try {
-    getServerRssNews('mundo')
+    getServerRssNews('games')
   } catch(e) {
     console.error('Erro ao pegar Rss', e)
   }
@@ -47,6 +49,7 @@ html {
   font-style: normal;
   transition: all 0.3s;
   max-width: 100vw;
+  background-color: var(--tw-bg-yellow-200);
 }
 .nuxt-icon svg {
   margin-bottom: 0;

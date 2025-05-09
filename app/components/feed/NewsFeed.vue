@@ -1,7 +1,8 @@
 <template>
   <div class="flex mt-6 justify-center items-center overflow-hidden">
     <ul id="list-stack" class="*:rounded-xl *:overflow-hidden *:shadow-2xl *:absolute">
-      <FeedNewsCard :key="index" v-for="(article, index) in articles" class="relative card-aspect" :content="article" />
+      <FeedNewsCard :key="index" v-for="(article, index) in articles" class="relative card-aspect" :content="article"
+      :source="source" />
     </ul>
   </div>
 </template>
@@ -13,8 +14,8 @@ const props = defineProps({
   news: Object
 })
 
+const source = props.news?.source
 const articles = props.news?.articles.filter(value => {
-  console.log('filter', value.title.length)
   return value.title.length
 })
 

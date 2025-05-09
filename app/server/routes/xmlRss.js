@@ -1,8 +1,8 @@
 import fetch from 'node-fetch';
 
 const CATEGORIES = {
-	'mundo': 'www.gazetadopovo.com.br/feed/rss/mundo.xml',
-	'tech': 'www.nextpit.com.br/feed/main.xml'
+	'mundo': 'g1.globo.com/rss/g1/planeta-bizarro/',
+	'games': 'fetchrss.com/rss/681e5265f7bbcde5010ec962681e524a3bf01610250f0c52.rss'
 }
 
 const getRouterParams = (url) => {
