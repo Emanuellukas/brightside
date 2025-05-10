@@ -1,5 +1,5 @@
 <template>
-  <li :class="'p-6 rounded-3xl bg-yellowSoft shadow-xl border-[#FFF176] mb-4 h-[58vh]'">
+  <li :class="'p-6 rounded-3xl bg-yellowSoft shadow-xl border-[#FFF176] mb-0 h-[60vh] relative'">
     <p class="text-sm font-semibold mb-3">
       {{formatedDate(pubDate)}}
     </p>
@@ -7,7 +7,7 @@
       <div class="flex gap-4">
         <div class="inline-block h-8 w-8 rounded-full ring-4 ring-white">
           <img v-if="!source.image?.url" src="../../assets/images/flower-icon-2048x2048-gydxzqnj.png" alt="">
-          <img v-else :src="source.image?.url" alt="">
+          <img v-else :src="source.image?.url" alt="" class="min-w-full">
         </div>
         <div class="flex flex-col">
           <span class="text-[.6rem] text-gray-700">
@@ -27,10 +27,10 @@
       {{ title }}
     </h2>
     <p class="text-grayDark description" v-html="description" />
-    <div class="flex mt-auto gap-3 justify-end">
-      <button>👍</button>
-      <button>💾</button>
-      <button>🔗</button>
+    <div class="fixed bottom-5 right-5 flex mt-auto gap-3 justify-end">
+      <button class="bg-slate-800 py-1 px-2 rounded-full">👍</button>
+        <!-- <button>💾</button> -->
+        <button class="bg-slate-800 py-1 px-2 rounded-full">🔗</button>
     </div>
     <slot/>
   </li>

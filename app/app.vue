@@ -1,13 +1,11 @@
 <template>
-  <div class="">
+  <div class="main">
     <HeaderNavbar/>
     <div class="container px-7 py-4 mx-auto">
+      <UtilsLoader/>
       <FeedNewsFeed v-if="!loading && useNews().value.articles[0]" :news="useNews().value"/>
-      <div v-if="loading">
-        <UtilsLoader/>
-      </div>
       <div class="text-red-500 px-8 text-lg" 
-        v-if="!useNews().value.articles[0]">
+        v-if="!useNews().value.articles[0] && !loading">
         Talvez eu esteja tendo um problema com minhas fontes, aguarde um 
       </div>
     </div>
@@ -48,18 +46,20 @@ html {
   font-weight: 400;
   font-style: normal;
   transition: all 0.3s;
-  max-width: 100vw;
-  background-color: var(--tw-bg-yellow-200);
-}
-.nuxt-icon svg {
-  margin-bottom: 0;
+  max-width: 100vw !important;
+  background-image: url('./assets/images/background.png');
+  min-height: 100vh;
+  max-height: 100vh;
+  background-size: cover;
+  background-position: center;
 }
 
-.curtain {
-  width: 100px;
-  height: 150px;
-  position: relative;
-  overflow: hidden;
+.main {
+  min-height: 100vh;
+}
+
+.nuxt-icon svg {
+  margin-bottom: 0;
 }
 
 svg {
@@ -67,10 +67,6 @@ svg {
   height: 100%;
   fill: #555;
   transition: transform 0.5s;
-}
-
-.curtain:hover svg {
-  transform: translateY(-50%);
 }
 
 </style>

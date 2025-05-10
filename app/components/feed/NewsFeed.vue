@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mt-6 justify-center items-center overflow-hidden">
+  <div class="flex mt-6 justify-center items-center overflow-hidden feed">
     <ul id="list-stack" class="*:rounded-xl *:overflow-hidden *:shadow-2xl *:absolute">
       <FeedNewsCard :key="index" v-for="(article, index) in articles" class="relative card-aspect" :content="article"
       :source="source" />
@@ -138,6 +138,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.feed {
+  z-index: 1;
+}
+
 svg{transition: transform 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
 html:has(.like){
@@ -147,7 +151,7 @@ html:has(.like){
   aspect-ratio:9/15;
 }
 #list-stack {
-  transition: transform 300ms ease-in-out;
+  transition: transform 1s ease-in-out;
 }
 #list-stack img {
   user-select: none;
@@ -163,20 +167,20 @@ html:has(.like){
 }
 #list-stack li:nth-child(1) {
   display: flex;
-  transform: translateX(-50%) scale(1);
+  transform: translateX(-50%) translateY(10%) scale(1);
   z-index: 0;
 }
 #list-stack li:nth-child(2) {
   display: flex;
   z-index: -2;
-  transform: perspective(1200px) translateX(-50%) translateZ(10em) rotateX(5deg)
+  transform: perspective(1200px) translateX(-50%) translateY(10%) translateZ(10em) rotateX(5deg)
     rotateZ(-10deg) scale(0.9);
   filter: brightness(90%);
 }
 #list-stack li:nth-child(3) {
   display: flex;
   z-index: -4;
-  transform: perspective(1200px) translateX(calc(-50% - 1em)) translateZ(5em)
+  transform: perspective(1200px) translateX(calc(-50% - 1em)) translateY(10%) translateZ(5em)
     rotateZ(-20deg) rotateX(5deg) scale(0.9);
   filter: brightness(80%);
 }
@@ -186,7 +190,6 @@ html:has(.like){
   position: fixed;
   top: 10rem;
   animation: card-entry 0.5s ease-in-out;
-  height: calc(60vh - 20px); /* 60% of viewport height minus 20px */
 }
 
 @keyframes card-entry {

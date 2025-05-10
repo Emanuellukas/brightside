@@ -1,7 +1,7 @@
 <template>
   <div class="p-2 bg-yellow-200 rounded-b-xl">
     <div class="row mb-1 flex items-center">
-      <div class="text-2xl text-white p-3 rounded-full w-3/12">
+      <div class="text-2xl text-white p-1 rounded-full w-2/12">
         <img src="../../assets/images/sun-draw.png" alt="logo" class="animate-spin logo">
       </div>
       <nav class="lg:flex hidden gap-4 text-xl text-white w-8/12 max-h-12 overflow-x-auto overflow-y-hidden">
@@ -17,6 +17,6 @@ const categorias = ['Trending', 'Saude']
 </script>
 <style scoped>
 .logo {
-  animation-duration: 160s;
+  animation-duration: 90s;
 }
 </style>
