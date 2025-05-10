@@ -55,21 +55,18 @@ function parseRSS(xmlString) {
 }
 
 export const getServerRssNews = async (category) => {
-	useNews().value = {...useNews().value, loading: true, articles: []}
-
 	if(hasCategoryXml(category)) {
 		const {content, source} = JSON.parse(localStorage.getItem(`data-${category}`))
-    console.log('olha s[o', source, content)
-		useNews().value = {...useNews().value, articles: [...content], source, loading: false};
+		useNews().value = await { ...useNews().value, articles: content, source, loading: false }
 		return
 	}
 
-	$fetch('/xmlRss', { params: { category }})
-  .then(xmlString => {
+	await $fetch('/xmlRss', { params: { category }})
+  .then(async xmlString => {
     xmlString = xmlString.replace('(Feed generated with FetchRSS)',)
     const { source, items } = parseRSS(xmlString)
 
-		useNews().value = {...useNews().value, articles: items, source, loading: false};
+		useNews().value = await { ...useNews().value, articles: items, source, loading: false }
 		saveCategoryXml(category, {content: items, source})
   })
   .catch(error => {
@@ -77,14 +74,6 @@ export const getServerRssNews = async (category) => {
 		console.error(errorMessage, error)
 	});
 }
-
-// export const getRssNews = async () => {
-// 	useNews().value.loading = true
-
-// 	const RssFeedEmitter = require('rss-feed-emitter');
-// 	const feeder = new RssFeedEmitter();
-// 	console.log('feeder', feeder)
-// }
 
 const saveCategoryXml = (category, {content, source}) => {
 	const payload = {content, source, timestamp: Date.now()}

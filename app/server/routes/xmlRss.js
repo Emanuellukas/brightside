@@ -1,9 +1,5 @@
 import fetch from 'node-fetch';
-
-const CATEGORIES = {
-	'mundo': 'g1.globo.com/rss/g1/planeta-bizarro/',
-	'games': 'fetchrss.com/rss/681e5265f7bbcde5010ec962681e524a3bf01610250f0c52.rss'
-}
+import { FEED_CATEGORIES } from './constants';
 
 const getRouterParams = (url) => {
   const queryString = url.split('?')[1];
@@ -27,7 +23,7 @@ export default defineEventHandler(async ({req}) => {
 	}
 
 	return new Promise( async (response, reject) => {
-		const result = await fetch(`https://${CATEGORIES[category]}`);
+		const result = await fetch(`https://${FEED_CATEGORIES[category]}`);
   	const xmlData = await result.text();
 		response(xmlData)
 	}).catch(error => {
