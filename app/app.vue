@@ -19,7 +19,7 @@ const { loading } = useNews().value
 
 onMounted(() => {
   try {
-    getServerRssNews('games')
+    getServerRssNews('mundo')
   } catch(e) {
     console.error('Erro ao pegar Rss', e)
   }
@@ -53,6 +53,28 @@ html {
   background-size: cover;
   background-position: center;
 }
+
+body[data-theme="morning"] {
+  --sky-color: #FFFAE5;
+  --sun-color: #FFD93D;
+}
+
+body[data-theme="afternoon"] {
+  --sky-color: #87CEEB;
+  --sun-color: #FDB813;
+}
+
+body[data-theme="sunset"] {
+  --sky-color: #FFB347;
+  --sun-color: #FF4500;
+}
+
+body[data-theme="night"] {
+  --sky-color: #0B0C10;
+  --moon-color: #F4F1C9;
+  --stars-opacity: 1;
+}
+
 
 .main {
   min-height: 100vh;

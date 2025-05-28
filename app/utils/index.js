@@ -58,6 +58,7 @@ export const getServerRssNews = async (category) => {
 	if(hasCategoryXml(category)) {
 		const {content, source} = JSON.parse(localStorage.getItem(`data-${category}`))
 		useNews().value = await { ...useNews().value, articles: content, source, loading: false }
+    console.log('content', source)
 		return
 	}
 
@@ -99,4 +100,8 @@ const hasCategoryXml = (category) => {
     console.error('Erro ao ler do localStorage:', e);
     return null;
   }
+}
+
+const setThemeBasedOnTime = () => {
+  //todo
 }

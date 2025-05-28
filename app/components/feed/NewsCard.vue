@@ -1,5 +1,5 @@
 <template>
-  <li :class="'p-6 rounded-3xl bg-yellowSoft shadow-xl border-[#FFF176] mb-0 h-[60vh] relative'">
+  <li :class="'p-6 rounded-3xl bg-yellowSoft border-[#FFF176] mb-0 h-[70vh] relative'">
     <p class="text-sm font-semibold mb-3">
       {{formatedDate(pubDate)}}
     </p>
@@ -11,7 +11,7 @@
         </div>
         <div class="flex flex-col">
           <span class="text-[.6rem] text-gray-700">
-            Publicado por
+            Fonte
           </span>
           <span class="font-bold text-[.8rem] truncate w-5/6">
             {{ source?.title.slice(0, 20) }}
