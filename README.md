@@ -1,22 +1,19 @@
-# Brightside
+# Brightside (em desenvolvimento!!!!)
 
-Brightside é um portal de notícias desenvolvido para destacar conteúdos positivos e inspiradores, com o objetivo de melhorar o dia dos seus usuários. O projeto busca reunir notícias que tragam otimismo, esperança e boas histórias, filtrando o que há de melhor nos feeds de notícias.
+Brightside é um portal de notícias desenvolvido para destacar conteúdos positivos e inspiradores, com o objetivo de melhorar o dia dos seus usuários. A idéia é reunir notícias que tragam otimismo, esperança e boas histórias,num feed dinâmico e com experiência imersiva. 
 
 ## Objetivos
 
 - Divulgar notícias que tragam bem-estar e positividade.
-- Oferecer uma experiência agradável e moderna para leitura de notícias.
+- Oferecer uma experiência agradável e moderna
 - Facilitar o acesso a conteúdos de diferentes fontes, sempre com curadoria para manter o foco em boas notícias.
+- Estudar e implementar tecnologias diferentes.
 
-## Tecnologias Utilizadas
+## Stack atual
 
 - **Vue.js 3**: Framework progressivo para construção da interface do usuário.
 - **Nuxt 3**: Framework para aplicações Vue com SSR, rotas automáticas e otimizações.
 - **Tailwind CSS**: Utilizado para estilização rápida e responsiva dos componentes.
-- **Composables Vue**: Para organização da lógica de estado e reuso de funcionalidades.
-- **LocalStorage**: Para cache local das notícias e otimização de performance.
-- **Fetch API**: Para buscar e consumir feeds RSS de notícias.
-- **Google Fonts**: Para tipografia personalizada e visual moderno.
 
 ## Funcionalidades
 
@@ -41,8 +38,6 @@ Brightside é um portal de notícias desenvolvido para destacar conteúdos posit
    npm run dev
    ```
 
-Acesse em `http://localhost:3000` e aproveite boas notícias!
-
 ---
 
-Sinta-se à vontade para contribuir ou sugerir melhorias!
+Sinta-se à vontade para contribuir e/ou sugerir melhorias!
