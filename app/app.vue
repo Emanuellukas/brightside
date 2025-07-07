@@ -3,7 +3,7 @@
     <HeaderNavbar/>
     <div class="container px-7 py-4 mx-auto">
       <UtilsLoader/>
-      <FeedNewsFeed v-if="!state.loading && state.articles[0]" />
+      <FeedNewsFeed v-if="!state.loading && state.articles[0]" :news="state" />
     </div>
     <FooterNavbar/>
   </div>

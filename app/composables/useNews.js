@@ -97,12 +97,17 @@ export default function () {
   };
 
   const removeArticle = async (index) => {
-    state.value.articles = state.value.articles.splice(index, 1)
+    state.value.articles.splice(index, 1);
+  }
+
+  const shortDescription = (description) => {
+    return description.length > 400 ? description.slice(0, 400) + '...' : description
   }
 
   return {
     state,
     getServerRssNews,
-    removeArticle
+    removeArticle,
+    shortDescription
   };
 }
