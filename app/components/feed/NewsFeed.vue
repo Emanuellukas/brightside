@@ -8,13 +8,13 @@
           class="relative"
           :content="article"
           :source="source"
-          :initial="{ scale: .3, x: 30, y: -35, rotate: 0 }"
+          :initial="{ scale: 0, x: 0, y: 0, rotate: 0 }"
           :animate="{ scale: 1, transition: { duration: .5 } }"
           :drag="true"
           :dragConstraints="{top: 0, bottom: 0, left: 0, right: 0 }"
-          :whileDrag="{ scale: 1.05, x: offsetX }"
+          :whileDrag="{ scale: 1.05, opacity: .9 }"
           :onDragEnd="(_, info) => handleDragEnd(info, index)"
-          :exit="{ opacity: 0, transition: { duration: 1 } }"
+          :exit="{ opacity: 0, transition: { duration: .6 } }"
         />
       </AnimatePresence>
     </ul>
@@ -38,7 +38,7 @@ const offsetX = ref(0)
 
 async function handleDragEnd(event, index) {
   offsetX.value = event.offset.x
-  if (Math.abs(offsetX.value) > 140) {
+  if (Math.abs(offsetX.value) > 100) {
     console.log('remove article', event, offsetX.value)
     await removeArticle(index)
   }
