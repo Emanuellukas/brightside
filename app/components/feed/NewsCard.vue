@@ -26,8 +26,8 @@
     <h2 class="conteudo text-grayDark md:text-clip hover:text-clip font-semibold mb-2">
       {{ title }}
     </h2>
-    <p class="text-grayDark description" v-html="description" />
-    <div class="fixed bottom-5 right-5 flex mt-auto gap-3 justify-end">
+    <p class="text-grayDark description" v-html="shortDescription(description)" />
+    <div class="absolute bottom-5 right-5 flex mt-auto gap-3 justify-end">
       <button class="bg-slate-800 py-1 px-2 rounded-full">👍</button>
         <!-- <button>💾</button> -->
         <button class="bg-slate-800 py-1 px-2 rounded-full">🔗</button>
@@ -41,7 +41,8 @@ const props = defineProps({
   source: Object
 })
 
-const { link, title, pubDate, urlToImage, description } = props.content
+const { link, title, pubDate, description } = props.content
+const { shortDescription } = useNews()
 
 </script>
 <style scoped>

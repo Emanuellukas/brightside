@@ -1,42 +1,45 @@
 <template>
   <div class="flex mt-6 justify-center items-center overflow-hidden feed">
     <ul id="list-track" class="">
-      <MotionFeedNewsCard
-        :key="index"
-        v-for="(article, index) in articles"
-        class="relative"
-        :content="article"
-        :source="source"
-        :initial="{ scale: 1, x: 0, y: 0, rotate: 0 }"
-        :animate="{ scale: 1 }"
-        :drag="true"
-        :dragConstraints="{top: 0, bottom: 0, left: 0, right: 0 }"
-        :whileDrag="{ scale: 1.05 }"
-        :onDragEnd="(_, info) => handleDragEnd(info, index)"
-      />
+      <AnimatePresence>
+        <MotionFeedNewsCard
+          :key="index"
+          v-for="(article, index) in articles"
+          class="relative"
+          :content="article"
+          :source="source"
+          :initial="{ scale: 0, x: 0, y: 0, rotate: 0 }"
+          :animate="{ scale: 1, transition: { duration: 1 } }"
+          :drag="true"
+          :dragConstraints="{top: 0, bottom: 0, left: 0, right: 0 }"
+          :whileDrag="{ scale: 1.05, x: offsetX }"
+          :onDragEnd="(_, info) => handleDragEnd(info, index)"
+          :exit="{ opacity: 0, transition: { duration: 1 } }"
+        />
+      </AnimatePresence>
     </ul>
   </div>
 </template>
 
 <script setup lang="js">
-import { motion } from "motion-v"
+import { AnimatePresence, motion, time } from "motion-v"
 import FeedNewsCard from "../feed/NewsCard"
 const MotionFeedNewsCard = motion.create(FeedNewsCard)
 
-const { state, removeArticle } = useNews()	
-
-const source = state.value.source
-const articles = state.value.articles.filter(value => {
-  return value.title.length
+const props = defineProps({
+  news: Object
 })
 
-onMounted(() => {
-  console.log('articles', state.value.articles)
-})
+const { removeArticle } = useNews()	
+
+const source = props.news?.source
+const articles = ref(props.news?.articles)
+const offsetX = ref(0)
 
 async function handleDragEnd(event, index) {
-  const offsetX = event.offset.x
-  if (Math.abs(offsetX) > 330) {
+  offsetX.value = event.offset.x
+  if (Math.abs(offsetX.value) > 320) {
+    console.log('remove article', event, offsetX.value)
     await removeArticle(index)
   }
 }
