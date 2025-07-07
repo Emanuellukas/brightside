@@ -8,8 +8,8 @@
           class="relative"
           :content="article"
           :source="source"
-          :initial="{ scale: 0, x: 0, y: 0, rotate: 0 }"
-          :animate="{ scale: 1, transition: { duration: 1 } }"
+          :initial="{ scale: .3, x: 30, y: -35, rotate: 0 }"
+          :animate="{ scale: 1, transition: { duration: .5 } }"
           :drag="true"
           :dragConstraints="{top: 0, bottom: 0, left: 0, right: 0 }"
           :whileDrag="{ scale: 1.05, x: offsetX }"
@@ -38,7 +38,7 @@ const offsetX = ref(0)
 
 async function handleDragEnd(event, index) {
   offsetX.value = event.offset.x
-  if (Math.abs(offsetX.value) > 320) {
+  if (Math.abs(offsetX.value) > 140) {
     console.log('remove article', event, offsetX.value)
     await removeArticle(index)
   }
