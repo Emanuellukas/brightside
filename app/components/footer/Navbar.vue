@@ -7,7 +7,7 @@
         <nuxt-icon name="sun"/>
       </div>
     </FooterButton>
-    <FooterButton class="bg-primary w-1/3 rounded-none hover:bg-secondary hover:text-yellow-700">
+    <FooterButton @click="getFeedNews('world')" class="bg-primary w-1/3 rounded-none hover:bg-secondary hover:text-yellow-700">
       <div class="flex justify-center">
         <nuxt-icon name="search"/>
       </div>
@@ -20,8 +20,11 @@
   </div>
 </template>
 <script setup lang="js">
+
+const { state, getServerRssNews } = useNews() 
+
 const getFeedNews = async (category = 'games') => {
-  useNews().value.articles = []
+  state.value.articles = []
   
   startSunriseAnimation()
   getServerRssNews(category)

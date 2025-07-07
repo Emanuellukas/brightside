@@ -8,45 +8,26 @@
 </template>
 
 <script setup lang="js">
-import { onMounted, ref } from 'vue'
+import { motion } from "motion-v"
+import FeedNewsCard from "../feed/NewsCard"
+const MotionFeedNewsCard = motion.create(FeedNewsCard)
 
-const props = defineProps({
-  news: Object
-})
+const { state, removeArticle } = useNews()	
 
-const source = props.news?.source
-const articles = props.news?.articles.filter(value => {
+const source = state.value.source
+const articles = state.value.articles.filter(value => {
   return value.title.length
 })
 
-const list = ref(null)
-const threshold = 400
+onMounted(() => {
+  console.log('articles', state.value.articles)
+})
 
-const rootElement = document.getElementsByTagName("html")[0]
-
-// Card constructor
-let count = 4
-function createAndAppendCard() {
-  // Create the 'li' element
-  const listItem = document.createElement("li")
-  listItem.className = "card-aspect"
-
-  // Create the inner 'div' element
-  const div = document.createElement("div")
-  div.className = "aspect-square w-full p-4 overflow-hidden"
-
-  // Create the 'h1' element
-  const h1 = document.createElement("h1")
-  h1.textContent = `Item ${count}`
-
-  // Append the 'div' and 'h1' to the 'li'
-  listItem.appendChild(div)
-  listItem.appendChild(h1)
-
-  // Find the 'ul' element and append the 'li' to it
-  list.value.appendChild(listItem)
-  startDrag(listItem)
-  count++
+async function handleDragEnd(event, index) {
+  const offsetX = event.offset.x
+  if (Math.abs(offsetX) > 330) {
+    await removeArticle(index)
+  }
 }
 
 // Adjust element style based on drag
@@ -137,7 +118,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .feed {
   z-index: 1;
 }
@@ -185,21 +166,9 @@ html:has(.like){
   filter: brightness(80%);
 }
 
-
-.card {
-  position: fixed;
-  top: 10rem;
-  animation: card-entry 0.5s ease-in-out;
-}
-
-@keyframes card-entry {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+#list-track li {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>

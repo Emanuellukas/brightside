@@ -1,7 +1,108 @@
+const errorMessage = 'Erro ao buscar XML de notícias.';
+
+function parseRSS(xmlString) {
+  const parser = new DOMParser();
+  const xml = parser.parseFromString(xmlString, 'text/xml');
+
+  const channel = xml.querySelector('channel');
+
+  const source = {
+    title: channel.querySelector('title')?.textContent ?? '',
+    description: channel.querySelector('description')?.textContent ?? '',
+    pubDate: channel.querySelector('pubDate')?.textContent ?? '',
+    link: channel.querySelector('link')?.textContent ?? '',
+    generator: channel.querySelector('generator')?.textContent ?? '',
+    image: {
+      url: channel.querySelector('image url')?.textContent ?? '',
+      title: channel.querySelector('image title')?.textContent ?? '',
+      link: channel.querySelector('image link')?.textContent ?? ''
+    }
+  };
+
+  const items = [...channel.querySelectorAll('item')].map(item => {
+    const media = item.querySelector('media\\:content'); // cuidado com namespaces!
+    const descriptionRaw = item.querySelector('description')?.textContent ?? '';
+
+    return {
+      title: item.querySelector('title')?.textContent ?? '',
+      link: item.querySelector('link')?.textContent ?? '',
+      description: descriptionRaw.replace(/<!\[CDATA\[|\]\]>/g, '').trim(),
+      creator: item.querySelector('dc\\:creator')?.textContent ?? '',
+      pubDate: item.querySelector('pubDate')?.textContent ?? '',
+      media: {
+        url: media?.getAttribute('url') ?? '',
+        width: media?.getAttribute('width') ?? '',
+        height: media?.getAttribute('height') ?? ''
+      },
+      guid: item.querySelector('guid')?.textContent ?? ''
+    };
+  });
+
+  return { source, items };
+}
+
+const saveCategoryXml = (category, {content, source}) => {
+	const payload = {content, source, timestamp: Date.now()}
+	localStorage.setItem(`data-${category}`, JSON.stringify(payload))
+}
+
+const hasCategoryXml = (category) => {
+	const old = JSON.parse(localStorage.getItem(`data-${category}`));
+
+  if (!old?.content?.length) return false;
+
+  try {
+    const { content, timestamp } = old;
+    const duasHoras = 2 * 60 * 60 * 1000; // 2 horas em milissegundos
+
+    if (Date.now() - timestamp <= duasHoras) {
+      return content;
+    }
+
+		localStorage.removeItem(`data-${category}`);
+		return null;
+  } catch (e) {
+    console.error('Erro ao ler do localStorage:', e);
+    return null;
+  }
+}
+
 export default function () {
-  return useState('news', () => ({
+  const state = useState('news', () => ({
     articles: [],
     source: {},
     loading: false
-  }))
+  }));
+
+  const getServerRssNews = async (category) => {
+    state.value.loading = true;
+    if (hasCategoryXml(category)) {
+      const { content, source } = JSON.parse(localStorage.getItem(`data-${category}`));
+      state.value = { ...state.value, articles: content.slice(0, 10), source, loading: false };
+      return;
+    }
+
+    await $fetch('/xmlRss', { params: { category } })
+      .then(async xmlString => {
+        xmlString = xmlString.replace('(Feed generated with FetchRSS)', '');
+        const { source, items } = parseRSS(xmlString);
+
+        state.value = { ...state.value, articles: items.slice(0, 10), source, loading: false };
+        saveCategoryXml(category, { content: items, source });
+      })
+      .catch(error => {
+        alert(errorMessage, error);
+        console.error(errorMessage, error);
+      });
+  };
+
+  const removeArticle = async (index) => {
+    state.value.articles = state.value.articles.splice(index, 1)
+  }
+
+  return {
+    state,
+    getServerRssNews,
+    removeArticle
+  };
 }

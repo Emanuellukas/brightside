@@ -3,11 +3,7 @@
     <HeaderNavbar/>
     <div class="container px-7 py-4 mx-auto">
       <UtilsLoader/>
-      <FeedNewsFeed v-if="!loading && useNews().value.articles[0]" :news="useNews().value"/>
-      <div class="text-red-500 px-8 text-lg" 
-        v-if="!useNews().value.articles[0] && !loading">
-        Talvez eu esteja tendo um problema com minhas fontes, aguarde um 
-      </div>
+      <FeedNewsFeed v-if="!state.loading && state.articles[0]" />
     </div>
     <FooterNavbar/>
   </div>
@@ -15,11 +11,11 @@
 <script setup lang="js">
 import { onMounted } from 'vue'
 
-const { loading } = useNews().value 
+const { state, getServerRssNews } = useNews()
 
 onMounted(() => {
   try {
-    getServerRssNews('games')
+    getServerRssNews('world')
   } catch(e) {
     console.error('Erro ao pegar Rss', e)
   }
