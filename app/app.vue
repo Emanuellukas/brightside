@@ -4,8 +4,6 @@
       :src="`/backgrounds/${useBackgroundTheme()}.png`"
       alt="Brightside background"
       class="absolute inset-0 w-full h-full object-cover z-0"
-      :width="300"
-      :height="500"
       format="png"
     />
 
@@ -13,7 +11,7 @@
       <div class="main">
         <HeaderNavbar/>
         <div class="container px-7 py-4 mx-auto">
-          <UtilsLoader/>
+          <!-- <UtilsLoader/> -->
           <FeedNewsFeed v-if="!state.loading && state.articles[0]" :news="state" />
         </div>
         <FooterNavbar/>
