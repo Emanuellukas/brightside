@@ -1,5 +1,6 @@
 export function useBackgroundTheme() {
   const hour = new Date().getHours()
+  const minutes = new Date().getMinutes()
 
   const themes = [
     { name: 'dawn', start: 4, end: 7 },
@@ -10,6 +11,6 @@ export function useBackgroundTheme() {
     { name: 'night', start: 22, end: 4 },
   ]
 
-  const currentTheme = themes.find(t => hour >= t.start && hour < t.end)
+  const currentTheme = themes.find(t => (hour >= t.start && hour < t.end) || (hour + minutes >= t.start && hour + minutes < t.end))
   return currentTheme ? currentTheme.name : 'night'
 }
