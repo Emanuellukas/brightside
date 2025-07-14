@@ -1,11 +1,24 @@
 <template>
-  <div class="main">
-    <HeaderNavbar/>
-    <div class="container px-7 py-4 mx-auto">
-      <UtilsLoader/>
-      <FeedNewsFeed v-if="!state.loading && state.articles[0]" :news="state" />
+  <div class="relative w-full h-full overflow-hidden">
+    <NuxtImg
+      :src="`/backgrounds/${useBackgroundTheme()}.png`"
+      alt="Brightside background"
+      class="absolute inset-0 w-full h-full object-cover z-0"
+      :width="300"
+      :height="500"
+      format="png"
+    />
+
+    <div class="relative z-10">
+      <div class="main">
+        <HeaderNavbar/>
+        <div class="container px-7 py-4 mx-auto">
+          <UtilsLoader/>
+          <FeedNewsFeed v-if="!state.loading && state.articles[0]" :news="state" />
+        </div>
+        <FooterNavbar/>
+      </div>
     </div>
-    <FooterNavbar/>
   </div>
 </template>
 <script setup lang="js">
@@ -43,37 +56,15 @@ html {
   font-style: normal;
   transition: all 0.3s;
   max-width: 100vw !important;
-  background-image: url('./assets/images/background.png');
   min-height: 100vh;
   max-height: 100vh;
-  background-size: cover;
-  background-position: center;
-}
-
-body[data-theme="morning"] {
-  --sky-color: #FFFAE5;
-  --sun-color: #FFD93D;
-}
-
-body[data-theme="afternoon"] {
-  --sky-color: #87CEEB;
-  --sun-color: #FDB813;
-}
-
-body[data-theme="sunset"] {
-  --sky-color: #FFB347;
-  --sun-color: #FF4500;
-}
-
-body[data-theme="night"] {
-  --sky-color: #0B0C10;
-  --moon-color: #F4F1C9;
-  --stars-opacity: 1;
 }
 
 
 .main {
   min-height: 100vh;
+  background-size: cover;
+  background-position: center;
 }
 
 .nuxt-icon svg {
