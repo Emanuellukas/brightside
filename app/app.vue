@@ -1,16 +1,16 @@
 <template>
   <div class="relative w-full h-full overflow-hidden">
     <NuxtImg
-      :src="`/backgrounds/${useBackgroundTheme()}.png`"
+      :src="`/backgrounds/${useTheme().currentBackgroundTheme}.png`"
       alt="Brightside background"
       class="absolute inset-0 w-full h-full object-cover z-0"
       format="png"
     />
 
     <div class="relative z-10">
-      <div class="main">
+      <div :class="['main', { dark: isNight }]">
         <HeaderNavbar/>
-        <div class="container px-7 py-4 mx-auto">
+        <div class="container px-7 mx-auto">
           <!-- <UtilsLoader/> -->
           <FeedNewsFeed v-if="!state.loading && state.articles[0]" :news="state" />
         </div>
@@ -23,6 +23,11 @@
 import { onMounted } from 'vue'
 
 const { state, getServerRssNews } = useNews()
+
+const isNight = computed(() => {
+  const hour = new Date().getHours()
+  return hour >= 19 || hour < 6
+})
 
 onMounted(() => {
   try {

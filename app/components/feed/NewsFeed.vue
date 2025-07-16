@@ -1,6 +1,6 @@
 <template>
   <div class="flex mt-6 justify-center items-center overflow-hidden feed">
-    <ul id="list-track" class="">
+    <ul id="list-track" class="h-[70vh]">
       <AnimatePresence>
         <MotionFeedNewsCard
           :key="index"
@@ -57,7 +57,6 @@ html:has(.like){
 #list-track {
   position: relative;
   width: 100%;
-  height: 70vh; /* ajuste conforme seu container */
 }
 
 #list-track li {

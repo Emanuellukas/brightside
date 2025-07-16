@@ -1,8 +1,8 @@
 <template>
-  <li :class="'p-6 rounded-3xl bg-yellowSoft border-[#FFF176] mb-0 h-[70vh] relative'">
-    <p class="text-sm font-semibold mb-3">
+  <li :class="'p-6 rounded-3xl bg-yellowSoft dark:bg-secondary-light border-[#FFF176] mb-0 h-full relative'">
+    <span class="text-sm font-semibold mb-3 px-2 py-1 bg-black dark:bg-primary-light text-white rounded-full inline-block">
       {{formatedDate(pubDate)}}
-    </p>
+    </span>
     <div class="rounded-md py-3 flex justify-between mb-3">
       <div class="flex gap-4">
         <div class="inline-block h-8 w-8 rounded-full ring-4 ring-white">
@@ -19,14 +19,14 @@
         </div>
       </div>
       <a :href="link" target="_blank"
-        class="rounded-full flex font-bold text-white bg-slate-900 border-2 border-slate-900 px-3 py-1 hover:bg-slate-600 hover:text-slate-300">
+        class="rounded-full flex font-bold text-white bg-slate-900 dark:bg-primary-light border-2 border-slate-900 dark:border-primary-light px-3 py-1 hover:bg-slate-600 hover:text-slate-300">
         Ler →
       </a>
     </div>
-    <h2 class="conteudo text-grayDark md:text-clip hover:text-clip font-semibold mb-2">
+    <h2 class="conteudo text-grayDark dark:text-sky-900 md:text-clip hover:text-clip font-semibold mb-2">
       {{ title }}
     </h2>
-    <p class="text-grayDark description" v-html="shortDescription(description)" />
+    <p class="text-grayDark dark:text-sky-800 description" v-html="shortDescription(description)" />
     <div class="absolute bottom-5 right-5 flex mt-auto gap-3 justify-end">
       <button class="bg-slate-800 py-1 px-2 rounded-full">👍</button>
         <!-- <button>💾</button> -->
