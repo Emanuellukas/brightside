@@ -71,11 +71,14 @@ export default function () {
   const state = useState('news', () => ({
     articles: [],
     source: {},
-    loading: false
+    loading: false,
+    currentCategory: 'world'
   }));
 
   const getServerRssNews = async (category) => {
     state.value.loading = true;
+    state.value.currentCategory = category;
+
     if (hasCategoryXml(category)) {
       const { content, source } = JSON.parse(localStorage.getItem(`data-${category}`));
       state.value = { ...state.value, articles: content.slice(0, 10), source, loading: false };
