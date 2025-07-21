@@ -28,9 +28,12 @@
     </h2>
     <p class="text-grayDark dark:text-sky-800 description" v-html="shortDescription(description)" />
     <div class="absolute bottom-5 right-5 flex mt-auto gap-3 justify-end">
-      <button class="bg-slate-800 py-1 px-2 rounded-full">👍</button>
-        <!-- <button>💾</button> -->
-        <button class="bg-slate-800 py-1 px-2 rounded-full">🔗</button>
+      <button class="text-slate-800 py-1 px-2 rounded-full hover:bg-slate-800 hover:text-white">
+        <Icon name="icon-park-outline:thumbs-up"/>
+      </button>
+      <button class="text-slate-800 py-1 px-2 rounded-full hover:bg-slate-800 hover:text-white">
+        <Icon name="icon-park-outline:share-one"/>
+      </button>
     </div>
     <slot/>
   </li>

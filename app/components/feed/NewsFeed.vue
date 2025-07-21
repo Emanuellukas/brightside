@@ -1,6 +1,6 @@
 <template>
   <div class="flex mt-6 justify-center items-center overflow-hidden feed w-full md:w-1/4 mx-auto">
-    <ul id="list-track" class="h-[70vh]">
+    <ul id="list-track" :class="`${state.currentCategory === 'gnews' ? 'h-[63vh]' : 'h-[70vh]'}`">
       <AnimatePresence>
         <MotionFeedNewsCard
           :key="index"
@@ -25,6 +25,8 @@
 import { AnimatePresence, motion, time } from "motion-v"
 import FeedNewsCard from "../feed/NewsCard"
 const MotionFeedNewsCard = motion.create(FeedNewsCard)
+
+const { state } = useNews()
 
 const props = defineProps({
   news: Object

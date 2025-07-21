@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { FEED_CATEGORIES } from './constants';
+import { FEED_CATEGORIES_URLS } from './constants';
 
 const getRouterParams = (url) => {
   const queryString = url.split('?')[1];
@@ -23,7 +23,7 @@ export default defineEventHandler(async ({req}) => {
 	}
 
 	return new Promise( async (response) => {
-		const result = await fetch(`https://${FEED_CATEGORIES[category]}${search ? `&q=${search}` : ''}`);
+		const result = await fetch(`https://${FEED_CATEGORIES_URLS[category]}${search ? `&q=${search}` : ''}`);
   	const xmlData = await result.text();
 		response(xmlData)
 	}).catch(error => {
