@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 
 const openai = new OpenAI({
-  apiKey: ""
+  apiKey: "_asdasdasdj"
 });
 
 const systemPrompt = `
