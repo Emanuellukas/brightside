@@ -1,6 +1,9 @@
 import OpenAI from "openai";
+import 'dotenv/config';
 
-const openai = new OpenAI();
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
 
 const systemPrompt = `
   You are a assistant that analyse and filter news articles in portuguese, in order to filter the news that evoke positive emotions.
