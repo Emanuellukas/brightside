@@ -1,0 +1,40 @@
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+  apiKey: "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"
+});
+
+const systemPrompt = `
+  You are a assistant that analyse and filter news articles in portuguese, in order to filter the news that evoke positive emotions.
+  You will recieve a array of articles [{title, description}] and I expect you to return a object with 'approved' and 'rejected' arrays,
+  with the articles that were approved and the rejected indexes with the following format:
+  {
+    "approved": [
+      {
+        "title": "...",
+        "content": "...",
+        "score": 8.5
+      }
+    ],
+    "rejected_indexes": [2, 5, 9]
+  }
+`
+
+export async function createCompletion(content) {
+  console.log('entrou aqui createCompletion')
+  let completion;
+  try {
+    completion = await openai.chat.completions.create({
+      "messages": [
+        { "role": "system", content: systemPrompt },
+        { "role": "user", content: JSON.stringify(content) }
+      ],
+      model: "gpt-4.1",
+    });
+    console.log('completion', completion.choices);
+  } catch (error) {
+    console.error('Erro ao criar completion com OpenAI:', error);
+    throw error; // relança o erro para tratamento posterior, se necessário
+  }
+  return completion.choices[0].message.content;
+}

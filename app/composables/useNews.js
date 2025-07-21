@@ -75,6 +75,16 @@ export default function () {
     currentCategory: 'world'
   }));
 
+  const getFilteredNews = async (content) => {
+    const result = await $fetch('/api/filteringNews', {
+      method: 'POST',
+      body: {
+        content
+      }
+    })
+    return result
+  }
+
   const getServerRssNews = async (category) => {
     state.value.loading = true;
     state.value.currentCategory = category;
@@ -82,6 +92,7 @@ export default function () {
     if (hasCategoryXml(category)) {
       const { content, source } = JSON.parse(localStorage.getItem(`data-${category}`));
       state.value = { ...state.value, articles: content.slice(0, 10), source, loading: false };
+      // await getFilteredNews(content)
       return;
     }
 
@@ -92,6 +103,7 @@ export default function () {
 
         state.value = { ...state.value, articles: items.slice(0, 10), source, loading: false };
         saveCategoryXml(category, { content: items, source });
+        // await getFilteredNews(items)
       })
       .catch(error => {
         alert(errorMessage, error);

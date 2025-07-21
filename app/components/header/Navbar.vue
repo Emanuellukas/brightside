@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="p-2 bg-primary-dark dark:bg-sky-900 rounded-b-xl header mb-3">
+    <div class="p-2 bg-primary-dark dark:bg-sky-900 rounded-b-xl header mb-3 md:mb-0">
       <div class="row mb-1 flex items-center justify-between">
-        <div class="text-2xl text-white p-1 rounded-full w-3/12">
+        <div class="text-2xl text-white p-1 rounded-full w-3/12 md:w-1/12">
           <img src="../../assets/images/logo.png" alt="logo" class="logo">
         </div>
         <button class="w-2/12 rounded-lg text-primary-light dark:text-primary-dark text-3xl">

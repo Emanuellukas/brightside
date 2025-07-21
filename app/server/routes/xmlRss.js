@@ -22,7 +22,7 @@ export default defineEventHandler(async ({req}) => {
 		alert('Categoria nao selecionada')
 	}
 
-	return new Promise( async (response, reject) => {
+	return new Promise( async (response) => {
 		const result = await fetch(`https://${FEED_CATEGORIES[category]}`);
   	const xmlData = await result.text();
 		response(xmlData)

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mt-6 justify-center items-center overflow-hidden feed">
+  <div class="flex mt-6 justify-center items-center overflow-hidden feed w-full md:w-1/4 mx-auto">
     <ul id="list-track" class="h-[70vh]">
       <AnimatePresence>
         <MotionFeedNewsCard
@@ -39,7 +39,6 @@ const offsetX = ref(0)
 async function handleDragEnd(event, index) {
   offsetX.value = event.offset.x
   if (Math.abs(offsetX.value) > 100) {
-    console.log('remove article', event, offsetX.value)
     await removeArticle(index)
   }
 }
