@@ -72,7 +72,11 @@ export default function () {
     articles: [],
     source: {},
     loading: true,
-    currentCategory: 'world'
+    currentCategory: 'world',
+    search: {
+      state: false,
+      input: ''
+    }
   }));
 
   const getFilteredNews = async (content) => {
@@ -94,6 +98,9 @@ export default function () {
       state.value = await { ...state.value, articles: [...content.slice(0, length)], source, loading: false };
       return;
     }
+
+    if (search.length)
+      state.value.search = { input: search, searching: false }
 
     await $fetch('/xmlRss', { params: { category, search } })
       .then(async xmlString => {
