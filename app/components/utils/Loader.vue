@@ -1,6 +1,6 @@
 <template>
-  <div class="loader-container absolute flex items-center mx-auto stroke-current bottom-[-2rem] left-[50%] text-white w-[70%] justify-between" 
-    style="">
+  <div class="loader-container absolute stroke-current bottom-[-2rem] left-[50%] text-white justify-between" 
+    style="transform: translate(-50%, -150%); z-index: -5;">
     <img src="../../assets/images/sun-draw.png" alt="logo" class="animate-spin loader blur-sm">
   </div>
 </template>
@@ -13,6 +13,7 @@
   transform: translate(-50%, -150%);
   z-index: -5;
 }
+
 .loader {
   animation-duration: 50s;
 }

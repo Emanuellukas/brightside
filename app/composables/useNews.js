@@ -71,27 +71,40 @@ export default function () {
   const state = useState('news', () => ({
     articles: [],
     source: {},
-    loading: false,
+    loading: true,
     currentCategory: 'world'
   }));
 
-  const getServerRssNews = async (category) => {
-    state.value.loading = true;
-    state.value.currentCategory = category;
+  const getFilteredNews = async (content) => {
+    const result = await $fetch('/api/filteringNews', {
+      method: 'POST',
+      body: {
+        content
+      }
+    })
+    return result
+  }
+
+  const getServerRssNews = async (category, length = 20, search = '') => {
+    state.value = { ...state.value, articles: [], source: {}, loading: true, currentCategory: category }
 
     if (hasCategoryXml(category)) {
       const { content, source } = JSON.parse(localStorage.getItem(`data-${category}`));
-      state.value = { ...state.value, articles: content.slice(0, 10), source, loading: false };
+
+      state.value = await { ...state.value, articles: [...content.slice(0, length)], source, loading: false };
       return;
     }
 
-    await $fetch('/xmlRss', { params: { category } })
+    await $fetch('/xmlRss', { params: { category, search } })
       .then(async xmlString => {
         xmlString = xmlString.replace('(Feed generated with FetchRSS)', '');
         const { source, items } = parseRSS(xmlString);
 
-        state.value = { ...state.value, articles: items.slice(0, 10), source, loading: false };
-        saveCategoryXml(category, { content: items, source });
+        state.value = await { ...state.value, articles: [...items.slice(0, length)], source, loading: false };
+
+        if(category !== 'gnews')
+          saveCategoryXml(category, { content: items, source });
+        // await getFilteredNews(items)
       })
       .catch(error => {
         alert(errorMessage, error);
@@ -107,9 +120,14 @@ export default function () {
     return description.length > 400 ? description.slice(0, 400) + '...' : description
   }
 
+  const selectCategory = (category) => {
+    state.value.currentCategory = category
+  }
+
   return {
     state,
     getServerRssNews,
+    selectCategory,
     removeArticle,
     shortDescription
   };

@@ -16,14 +16,14 @@ const getRouterParams = (url) => {
 };
 
 export default defineEventHandler(async ({req}) => {
-	const { category } = getRouterParams(req.url)
+	const { category, search } = getRouterParams(req.url)
 
 	if(!category) {
 		alert('Categoria nao selecionada')
 	}
 
-	return new Promise( async (response, reject) => {
-		const result = await fetch(`https://${FEED_CATEGORIES[category]}`);
+	return new Promise( async (response) => {
+		const result = await fetch(`https://${FEED_CATEGORIES[category]}${search ? `&q=${search}` : ''}`);
   	const xmlData = await result.text();
 		response(xmlData)
 	}).catch(error => {
