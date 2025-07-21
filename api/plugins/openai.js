@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 
 const openai = new OpenAI({
-  apiKey: "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"
+  apiKey: ""
 });
 
 const systemPrompt = `
@@ -21,7 +21,6 @@ const systemPrompt = `
 `
 
 export async function createCompletion(content) {
-  console.log('entrou aqui createCompletion')
   let completion;
   try {
     completion = await openai.chat.completions.create({

@@ -1,6 +1,6 @@
 const filterGoodNews = async (items) => {
   const content = items.slice(0, 20)
-  console.log('po vei', content)
+  
   let result;
   try {
     result = await $fetch(process.env.API_URL + '/api/filter-good-news', {
@@ -13,7 +13,6 @@ const filterGoodNews = async (items) => {
     console.error('Erro ao filtrar boas notícias:', error);
     result = null;
   }
-  console.log('result', result)
   return result
 }
 

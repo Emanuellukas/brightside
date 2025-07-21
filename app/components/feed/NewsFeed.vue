@@ -38,6 +38,7 @@ const offsetX = ref(0)
 
 async function handleDragEnd(event, index) {
   offsetX.value = event.offset.x
+  // console.log('offsetX', offsetX.value)
   if (Math.abs(offsetX.value) > 100) {
     await removeArticle(index)
   }
