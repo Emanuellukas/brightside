@@ -15,7 +15,7 @@
       </div>
     </div>
     <nav class="flex lg:block gap-4 text-white px-2 overflow-x-auto overflow-y-hidden">
-      <button :class="`leading-none mb-2 rounded-lg dark:text-primary text-md px-2 py-1 h-auto mx-2 ${activeCategory(cat.slug)}`" :key="index" v-for="(cat, index) in categorias" @click="setCategory(cat.slug)">
+      <button :id="cat.slug" :class="`leading-none mb-2 rounded-lg dark:text-primary text-md px-2 py-1 h-auto mx-2 ${activeCategory(cat.slug)}`" :key="index" v-for="(cat, index) in categorias" @click="setCategory(cat.slug)">
         {{ cat.name }}
       </button>
     </nav>
@@ -33,7 +33,7 @@ const categorias = [
   {name: 'Boas Notícias', slug: 'sonoticiaboa'},
   {name: 'Mundo', slug: 'world'},
   {name: 'Tecnologia', slug: 'technology'},
-  {name: 'Games', slug: 'games'},
+  {name: 'Games', slug: 'adrenaline'},
   {name: 'Ciência', slug: 'science'},
   {name: 'Google News', slug: 'gnews'},
 ]
