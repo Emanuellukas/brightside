@@ -15,7 +15,8 @@
       </div>
     </div>
     <nav class="flex lg:block gap-4 text-white px-2 overflow-x-auto overflow-y-hidden">
-      <button :id="cat.slug" :class="`leading-none mb-2 rounded-lg dark:text-primary text-md px-2 py-1 h-auto mx-2 ${activeCategory(cat.slug)}`" :key="index" v-for="(cat, index) in categorias" @click="setCategory(cat.slug)">
+      <button :id="cat.slug" :class="`flex items-center gap-2 leading-none mb-2 rounded-lg dark:text-white text-md px-2 py-1 h-auto mx-2 ${activeCategory(cat)}`" :key="index" v-for="(cat, index) in FEED_CATEGORIES" v-show="cat.active" @click="setCategory(cat.slug)" :style="{ borderColor: cat.color }">
+        <Icon :name="cat.icon" class="w-4 h-4" :style="{ color: cat.color }" v-if="state.currentCategory === cat.slug"/>
         {{ cat.name }}
       </button>
     </nav>
@@ -23,23 +24,16 @@
   </div>
 </template>
 <script setup lang="js">
+import { FEED_CATEGORIES } from '../../utils/constants'
+
 const { state, getServerRssNews, selectCategory } = useNews()
 
 const date = new Date()
 const pad2 = (n) => n.toString().padStart(2, '0')
 const clock = ref({ hour: pad2(date.getHours()), minutes: pad2(date.getMinutes()) })
 
-const categorias = [
-  {name: 'Boas Notícias', slug: 'sonoticiaboa'},
-  {name: 'Games', slug: 'adrenaline'},
-  {name: 'Tecnologia - inglês', slug: 'technology'},
-  {name: 'Ufologia', slug: 'ufology'},
-  {name: 'Mundo', slug: 'world'},
-  {name: 'Google News', slug: 'gnews'},
-]
-
-const activeCategory = (slug) => {
-  return state.value.currentCategory === slug ? 'animate-pulse bg-primary dark:bg-slate-900 font-bold' : 'border-2 border-primary'
+const activeCategory = ({ slug, color }) => {
+  return state.value.currentCategory === slug ? `animate-pulse bg-primary dark:bg-slate font-bold` : `border-2 border-${color}`
 }
 
 const setCategory = (slug) => {

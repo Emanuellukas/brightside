@@ -4,7 +4,7 @@ export const FEED_CATEGORIES = {
 		url: 'www.sonoticiaboa.com.br/feed/rss.xml',
 		slug: 'good-news',
 		name: 'Boas Notícias',
-		color: '#22c55e', // green-500
+    color: '#af0934',
 		icon: 'line-md:heart-twotone'
 	},
 	flowgames: {
@@ -12,15 +12,15 @@ export const FEED_CATEGORIES = {
 		url: 'flowgames.gg/feed',
 		slug: 'games',
 		name: 'Flow Games',
-		color: '#f59e0b', // amber-500
+		color: '#22c55e',
 		icon: 'line-md:game-controller-twotone'
 	},
-	technology: {
+	technology: { 
 		active: true,
 		url: 'wired.com/feed',
 		slug: 'technology',
 		name: 'Tecnologia',
-		color: '#8b5cf6', // violet-500
+		color: '#8b5cf6',
 		icon: 'line-md:laptop-twotone'
 	},
 	world: {
@@ -28,7 +28,7 @@ export const FEED_CATEGORIES = {
 		url: 'g1.globo.com/rss/g1/',
 		slug: 'world',
 		name: 'Mundo',
-		color: '#3b82f6', // blue-500
+		color: '#3b82f6',
 		icon: 'line-md:sun-rising-loop'
 	},
 	science: {
@@ -36,7 +36,7 @@ export const FEED_CATEGORIES = {
 		url: 'rss.app/feeds/6ZOWJlUIQdoBB3ld.xml',
 		slug: 'science',
 		name: 'Ciência',
-		color: '#10b981', // emerald-500
+		color: '#10b981',
 		icon: 'line-md:test-tube-twotone'
 	},
 	linux: {
@@ -44,7 +44,7 @@ export const FEED_CATEGORIES = {
 		url: 'diolinux.com.br/feed',
 		slug: 'linux',
 		name: 'Linux',
-		color: '#374151', // gray-700
+		color: '#374151',
 		icon: 'line-md:computer-twotone'
 	},
 	igngames: {
@@ -52,7 +52,7 @@ export const FEED_CATEGORIES = {
 		url: 'br.ign.com/feed.xml',
 		slug: 'ign-games',
 		name: 'IGN Games',
-		color: '#f97316', // orange-500
+		color: '#f97316',
 		icon: 'game-icons:console-controller'
 	},
 	adrenaline: {
@@ -60,7 +60,7 @@ export const FEED_CATEGORIES = {
 		url: 'www.adrenaline.com.br/games/feed/',
 		slug: 'adrenaline',
 		name: 'Adrenaline',
-		color: '#dc2626', // red-600
+		color: '#dc2626',
 		icon: 'game-icons:console-controller'
 	},
 	ufology: {
@@ -68,7 +68,7 @@ export const FEED_CATEGORIES = {
 		url: 'ufo.com.br/feed/',
 		slug: 'ufology',
 		name: 'Ufologia',
-		color: '#7c3aed', // violet-600
+		color: '#7c3aed',
 		icon: 'line-md:star-pulsating-loop'
 	},
 	gnews: {
@@ -76,7 +76,7 @@ export const FEED_CATEGORIES = {
 		url: 'news.google.com/rss/search?hl=pt-BR&gl=BR&ceid=BR',
 		slug: 'gnews',
 		name: 'Google News',
-		color: '#ef4444', // red-500
+		color: '#ef4444',
 		icon: 'line-md:search-twotone'
 	},
 }
