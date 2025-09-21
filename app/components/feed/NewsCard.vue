@@ -1,5 +1,8 @@
 <template>
   <li :class="'p-6 rounded-3xl bg-yellowSoft dark:bg-secondary-light border-[#FFF176] mb-0 h-full relative'">
+    <span class="text-sm font-semibold mb-3 px-2 py-1 bg-black dark:bg-primary-light text-white rounded-full inline-block mr-2">
+      {{ state.currentCategory }}
+    </span>
     <span class="text-sm font-semibold mb-3 px-2 py-1 bg-black dark:bg-primary-light text-white rounded-full inline-block">
       {{formatedDate(pubDate)}}
     </span>
@@ -45,7 +48,7 @@ const props = defineProps({
 })
 
 const { link, title, pubDate, description } = props.content
-const { shortDescription } = useNews()
+const { shortDescription, state } = useNews()
 
 </script>
 <style scoped>

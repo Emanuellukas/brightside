@@ -31,10 +31,10 @@ const clock = ref({ hour: pad2(date.getHours()), minutes: pad2(date.getMinutes()
 
 const categorias = [
   {name: 'Boas Notícias', slug: 'sonoticiaboa'},
-  {name: 'Mundo', slug: 'world'},
-  {name: 'Tecnologia', slug: 'technology'},
   {name: 'Games', slug: 'adrenaline'},
-  {name: 'Ciência', slug: 'science'},
+  {name: 'Tecnologia - inglês', slug: 'technology'},
+  {name: 'Ufologia', slug: 'ufology'},
+  {name: 'Mundo', slug: 'world'},
   {name: 'Google News', slug: 'gnews'},
 ]
 
