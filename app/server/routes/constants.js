@@ -6,7 +6,7 @@ export const FEED_CATEGORIES_URLS = {
 		icon: 'line-md:sun-rising-loop'
 	},
 	technology: {
-		url: 'rss.app/feeds/62WI1mJ7tjYmZdex.xml',
+		url: 'wired.com/feed',
 		name: 'Tecnologia',
 		color: '#8b5cf6', // violet-500
 		icon: 'line-md:laptop-twotone'
