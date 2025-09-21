@@ -1,6 +1,6 @@
 <template>
   <li :class="'p-6 rounded-3xl bg-yellowSoft dark:bg-secondary-light border-[#FFF176] mb-0 h-full relative'">
-    <span class="text-sm font-semibold mb-3 px-2 py-1 bg-black dark:bg-primary-light text-white rounded-full inline-block mr-2">
+    <span class="text-sm font-semibold mb-3 px-2 py-1 bg-slate-600 text-white rounded-full inline-block mr-2">
       {{ state.currentCategory }}
     </span>
     <span class="text-sm font-semibold mb-3 px-2 py-1 bg-black dark:bg-primary-light text-white rounded-full inline-block">
@@ -26,10 +26,10 @@
         Ler →
       </a>
     </div>
-    <h2 class="conteudo text-grayDark dark:text-sky-900 md:text-clip hover:text-clip font-semibold mb-2">
+    <h2 @click="handleClickCard" class="conteudo text-grayDark dark:text-sky-900 md:text-clip hover:text-clip font-semibold mb-2">
       {{ title }}
     </h2>
-    <p class="text-grayDark dark:text-sky-800 description" v-html="shortDescription(description)" />
+    <p @click="handleClickCard" class="text-grayDark dark:text-sky-800 description" v-html="shortDescription(description)" />
     <div class="absolute bottom-5 right-5 flex mt-auto gap-3 justify-end">
       <button class="text-slate-800 py-1 px-2 rounded-full hover:bg-slate-800 hover:text-white">
         <Icon name="icon-park-outline:thumbs-up"/>
@@ -49,6 +49,10 @@ const props = defineProps({
 
 const { link, title, pubDate, description } = props.content
 const { shortDescription, state } = useNews()
+
+const handleClickCard = () => {
+  window.open(link, '_blank')
+}
 
 </script>
 <style scoped>
