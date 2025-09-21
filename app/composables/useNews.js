@@ -72,7 +72,7 @@ export default function () {
     articles: [],
     source: {},
     loading: true,
-    currentCategory: 'world',
+    currentCategory: 'world', // usando chave da categoria FEED_CATEGORIES_URLS
     search: {
       state: false,
       input: ''

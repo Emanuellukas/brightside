@@ -23,7 +23,7 @@ export default defineEventHandler(async ({req}) => {
 	}
 
 	return new Promise( async (response) => {
-		const result = await fetch(`https://${FEED_CATEGORIES_URLS[category]}${search ? `&q=${search}` : ''}`);
+		const result = await fetch(`https://${FEED_CATEGORIES_URLS[category].url}${search ? `&q=${search}` : ''}`);
   	const xmlData = await result.text();
 		response(xmlData)
 	}).catch(error => {
