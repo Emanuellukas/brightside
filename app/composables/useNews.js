@@ -94,6 +94,7 @@ export default function () {
 
     if (hasCategoryXml(category)) {
       const { content, source } = JSON.parse(localStorage.getItem(`data-${category}`));
+      console.log('chegou aqui', content, category)
 
       state.value = await { ...state.value, articles: [...content.slice(0, length)], source, loading: false };
       return;

@@ -1,8 +1,8 @@
 export const FEED_CATEGORIES = {
 	sonoticiaboa: {
 		active: true,
-		url: 'www.sonoticiaboa.com.br/feed/rss.xml',
-		slug: 'good-news',
+		url: 'sonoticiaboa.com.br/feed/rss.xml',
+		slug: 'sonoticiaboa',
 		name: 'Boas Notícias',
 		color: '#22c55e', // green-500
 		icon: 'line-md:heart-twotone'
