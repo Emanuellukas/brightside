@@ -1,8 +1,10 @@
+import { FEED_CATEGORIES, useCategories } from "./useCategories";
+
 const ERROR_MESSAGE_FETCH_XML = 'Erro ao buscar XML de notícias.';
 const LOCAL_STORAGE_PREFIX = 'data-';
 const TWO_HOURS_MS = 2 * 60 * 60 * 1000;
 const DEFAULT_CATEGORY = 'sonoticiaboa';
-const DEFAULT_MAX_DESCRIPTION = 400;
+const DEFAULT_MAX_DESCRIPTION = 470;
 
 function parseRSS(xmlString) {
   const parser = new DOMParser();
@@ -82,6 +84,8 @@ export default function () {
     }
   }));
 
+  const { getActiveCategories } = useCategories()
+
   const getServerRssNews = async (category, length = 20, search = '') => {
     state.value = { ...state.value, articles: [], source: {}, loading: true, currentCategory: category }
 
@@ -113,7 +117,15 @@ export default function () {
   };
 
   const removeArticle = async (index) => {
-    state.value.articles.splice(index, 1);
+    const { value: { articles, currentCategory } } = state
+    articles.splice(index, 1);
+    if(!articles.length) {
+      const activeCategories = Object.keys(getActiveCategories());
+      const currentIndex = activeCategories.indexOf(currentCategory);
+      const nextCategory = activeCategories[(currentIndex + 1) % activeCategories.length];
+      updateFeedNews(nextCategory)
+      return
+    }
   }
 
   const shortDescription = (description) => {
@@ -126,12 +138,26 @@ export default function () {
     state.value.currentCategory = category
   }
 
+  const updateFeedNews = async (category) => {
+    startSunriseAnimation()
+    selectCategory(category)
+    getServerRssNews(category)
+  }
+
+  const clearLocalStorage = () => {
+    Object.keys(getActiveCategories()).forEach(category => {
+      localStorage.removeItem(`data-${category}`)
+    })
+  }
+
   return {
     state,
+    formatedDate,
+    updateFeedNews,
     getServerRssNews,
     selectCategory,
     removeArticle,
     shortDescription,
-    formatedDate
+    clearLocalStorage
   };
 }

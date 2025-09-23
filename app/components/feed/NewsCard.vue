@@ -1,5 +1,5 @@
 <template>
-  <li :class="'p-6 rounded-3xl bg-yellowSoft dark:bg-secondary-light border-2 border-black mb-0 h-[95%] relative'">
+  <li :class="'p-6 rounded-3xl bg-yellowSoft dark:bg-secondary-light border-2 border-yellow-600 dark:border-secondary-dark mb-0 h-[95%] w-[95%] relative'">
     <span class="text-sm font-semibold mb-3 px-2 py-1 bg-slate-600 text-white rounded-full inline-block mr-2">
       {{ state.currentCategory }}
     </span>
@@ -30,14 +30,6 @@
       {{ title }}
     </h2>
     <p @click="openArticle" class="text-grayDark dark:text-sky-800 description" v-html="shortDescription(description)" />
-    <div class="absolute bottom-5 right-5 flex mt-auto gap-3 justify-end">
-      <button class="text-slate-800 py-1 px-2 rounded-full hover:bg-slate-800 hover:text-white">
-        <Icon name="icon-park-outline:thumbs-up"/>
-      </button>
-      <button class="text-slate-800 py-1 px-2 rounded-full hover:bg-slate-800 hover:text-white">
-        <Icon name="icon-park-outline:share-one"/>
-      </button>
-    </div>
     <slot/>
   </li>
 </template>
@@ -50,7 +42,6 @@ const props = defineProps({
 const { link, title, pubDate, description } = props.content
 const { shortDescription, state, formatedDate } = useNews()
 
-// Constants
 const SOURCE_TITLE_MAX_LENGTH = 20
 
 const truncatedSourceTitle = computed(() => {

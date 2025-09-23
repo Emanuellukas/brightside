@@ -6,12 +6,12 @@
         <Icon :name="FEED_CATEGORIES[footerCategories.search].icon" />
       </div>
     </FooterButton>
-    <FooterButton @click="getFeedNews(footerCategories.home)" class="bg-primary dark:bg-sky-900 dark:text-primary-dark w-1/3 rounded-none hover:bg-secondary hover:text-yellow-700">
+    <FooterButton @click="updateFeedNews(footerCategories.home)" class="bg-primary dark:bg-sky-900 dark:text-primary-dark w-1/3 rounded-none hover:bg-secondary hover:text-yellow-700">
       <div class="flex justify-center">
         <Icon :name="FEED_CATEGORIES[footerCategories.home].icon"/>
       </div>
     </FooterButton>
-    <FooterButton @click="getFeedNews(footerCategories.games)" class="bg-primary dark:bg-sky-900 dark:text-primary-dark w-1/3 rounded-r-full rounded-tl-none hover:bg-secondary hover:text-yellow-700">
+    <FooterButton @click="updateFeedNews(footerCategories.games)" class="bg-primary dark:bg-sky-900 dark:text-primary-dark w-1/3 rounded-r-full rounded-tl-none hover:bg-secondary hover:text-yellow-700">
       <div class="flex justify-center">
         <Icon :name="FEED_CATEGORIES[footerCategories.games].icon"/>
       </div>
@@ -20,17 +20,11 @@
 </template>
 <script setup lang="js">
 const { FEED_CATEGORIES } = useCategories()
-const { getServerRssNews, selectCategory } = useNews() 
+const { selectCategory, updateFeedNews } = useNews() 
 
-const getFeedNews = async (category) => {
-  startSunriseAnimation()
-  getServerRssNews(category)
-}
-
-// Usando as chaves das categorias ao invés de strings hardcoded
 const footerCategories = {
   search: 'gnews',
-  home: 'world', 
+  home: 'sonoticiaboa', 
   games: 'adrenaline'
 }
 

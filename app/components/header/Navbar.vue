@@ -5,6 +5,7 @@
         <img src="../../assets/images/logo.png" alt="logo" class="logo">
       </div>
       <div class="flex items-center text-white w-4/12 text-md">
+        <Icon name="line-md:rotate-270" class="ml-auto mr-2 font-bold text-2xl border border-white" @click="clearLocalStorage()"/>
         <Icon name="mdi-light:clock" class="ml-auto mr-2"/>
         <p class="mb-0 mr-2 text-lg">
           {{ `${clock.hour}:${clock.minutes}` }}
@@ -17,11 +18,11 @@
     <nav class="flex lg:block gap-4 text-white px-2 overflow-x-auto overflow-y-hidden">
       <button 
         :id="cat.slug" 
-        :class="`leading-none mb-2 rounded-lg text-md px-2 py-1 h-auto mx-2 flex items-center gap-2 ${activeCategory(cat.slug)}`" 
+        :class="`leading-none mb-2 rounded-lg text-md px-2 py-1 h-auto mx-2 flex items-center gap-2 ${activeCategoryClasses(cat.slug)}`" 
         :key="index" 
         v-for="(cat, index) in activeCategories" 
         @click="setCategory(cat.slug)"
-        :style="{borderColor: cat.color}"
+        :style="{borderColor: cat.color, color: cat.color}"
       >
         <Icon :name="cat.icon" class="w-4 h-4" :style="{color: cat.color}" />
         {{ cat.name }}
@@ -32,7 +33,7 @@
 </template>
 <script setup lang="js">
 const { FEED_CATEGORIES, getActiveCategories } = useCategories()
-const { state, getServerRssNews, selectCategory } = useNews()
+const { state, getServerRssNews, selectCategory, clearLocalStorage } = useNews()
 
 const date = new Date()
 const pad2 = (n) => n.toString().padStart(2, '0')
@@ -45,7 +46,7 @@ const activeCategories = Object.keys(getActiveCategories()).map(key => ({
   icon: FEED_CATEGORIES[key].icon
 }))
 
-const activeCategory = (slug) => {
+const activeCategoryClasses = (slug) => {
   return state.value.currentCategory === slug ? 'animate-pulse bg-primary dark:bg-slate-900 font-bold' : 'border-2 border-primary'
 }
 
