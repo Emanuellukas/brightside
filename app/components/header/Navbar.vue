@@ -17,9 +17,9 @@
     <nav class="flex lg:block gap-4 text-white px-2 overflow-x-auto overflow-y-hidden">
       <button 
         :id="cat.slug" 
-        :class="`leading-none mb-2 rounded-lg dark:text-primary text-md px-2 py-1 h-auto mx-2 flex items-center gap-2 ${activeCategory(cat.slug)}`" 
+        :class="`leading-none mb-2 rounded-lg text-md px-2 py-1 h-auto mx-2 flex items-center gap-2 ${activeCategory(cat.slug)}`" 
         :key="index" 
-        v-for="(cat, index) in categorias" 
+        v-for="(cat, index) in activeCategories" 
         @click="setCategory(cat.slug)"
         :style="{borderColor: cat.color}"
       >
@@ -31,14 +31,14 @@
   </div>
 </template>
 <script setup lang="js">
-const { FEED_CATEGORIES } = useCategories()
+const { FEED_CATEGORIES, getActiveCategories } = useCategories()
 const { state, getServerRssNews, selectCategory } = useNews()
 
 const date = new Date()
 const pad2 = (n) => n.toString().padStart(2, '0')
 const clock = ref({ hour: pad2(date.getHours()), minutes: pad2(date.getMinutes()) })
 
-const categorias = Object.keys(FEED_CATEGORIES).map(key => ({
+const activeCategories = Object.keys(getActiveCategories()).map(key => ({
   name: FEED_CATEGORIES[key].name,
   slug: key,
   color: FEED_CATEGORIES[key].color,

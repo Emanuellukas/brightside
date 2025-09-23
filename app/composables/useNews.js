@@ -1,4 +1,8 @@
-const errorMessage = 'Erro ao buscar XML de notícias.';
+const ERROR_MESSAGE_FETCH_XML = 'Erro ao buscar XML de notícias.';
+const LOCAL_STORAGE_PREFIX = 'data-';
+const TWO_HOURS_MS = 2 * 60 * 60 * 1000;
+const DEFAULT_CATEGORY = 'sonoticiaboa';
+const DEFAULT_MAX_DESCRIPTION = 400;
 
 function parseRSS(xmlString) {
   const parser = new DOMParser();
@@ -34,32 +38,31 @@ function parseRSS(xmlString) {
         width: media?.getAttribute('width') ?? '',
         height: media?.getAttribute('height') ?? ''
       },
-      guid: item.querySelector('guid')?.textContent ?? ''
+      guid: item.querySelector('guid')?.textContent ?? '',
+      viewed: false
     };
   });
 
   return { source, items };
 }
 
-const saveCategoryXml = (category, {content, source}) => {
-	const payload = {content, source, timestamp: Date.now()}
-	localStorage.setItem(`data-${category}`, JSON.stringify(payload))
+const saveCategoryXml = (category, { content, source }) => {
+    const payload = { content, source, timestamp: Date.now() }
+    localStorage.setItem(`${LOCAL_STORAGE_PREFIX}${category}`, JSON.stringify(payload))
 }
 
 const hasCategoryXml = (category) => {
-	const old = JSON.parse(localStorage.getItem(`data-${category}`));
+    const old = JSON.parse(localStorage.getItem(`${LOCAL_STORAGE_PREFIX}${category}`));
 
   if (!old?.content?.length) return false;
 
   try {
     const { content, timestamp } = old;
-    const duasHoras = 2 * 60 * 60 * 1000; // 2 horas em milissegundos
-
-    if (Date.now() - timestamp <= duasHoras) {
+    if (Date.now() - timestamp <= TWO_HOURS_MS) {
       return content;
     }
 
-		localStorage.removeItem(`data-${category}`);
+        localStorage.removeItem(`${LOCAL_STORAGE_PREFIX}${category}`);
 		return null;
   } catch (e) {
     console.error('Erro ao ler do localStorage:', e);
@@ -72,29 +75,18 @@ export default function () {
     articles: [],
     source: {},
     loading: true,
-    currentCategory: 'world', // usando chave da categoria FEED_CATEGORIES
+    currentCategory: DEFAULT_CATEGORY,
     search: {
       state: false,
       input: ''
     }
   }));
 
-  const getFilteredNews = async (content) => {
-    const result = await $fetch('/api/filteringNews', {
-      method: 'POST',
-      body: {
-        content
-      }
-    })
-    return result
-  }
-
   const getServerRssNews = async (category, length = 20, search = '') => {
     state.value = { ...state.value, articles: [], source: {}, loading: true, currentCategory: category }
 
     if (hasCategoryXml(category)) {
-      const { content, source } = JSON.parse(localStorage.getItem(`data-${category}`));
-      console.log('chegou aqui', content, category)
+      const { content, source } = JSON.parse(localStorage.getItem(`${LOCAL_STORAGE_PREFIX}${category}`));
 
       state.value = await { ...state.value, articles: [...content.slice(0, length)], source, loading: false };
       return;
@@ -112,11 +104,11 @@ export default function () {
 
         if(category !== 'gnews')
           saveCategoryXml(category, { content: items, source });
-        // await getFilteredNews(items)
+        return
       })
       .catch(error => {
-        alert(errorMessage, error);
-        console.error(errorMessage, error);
+        alert(ERROR_MESSAGE_FETCH_XML, error);
+        console.error(ERROR_MESSAGE_FETCH_XML, error);
       });
   };
 
@@ -125,7 +117,9 @@ export default function () {
   }
 
   const shortDescription = (description) => {
-    return description.length > 400 ? description.slice(0, 400) + '...' : description
+    return description.length > DEFAULT_MAX_DESCRIPTION
+      ? description.slice(0, DEFAULT_MAX_DESCRIPTION) + '...'
+      : description
   }
 
   const selectCategory = (category) => {
@@ -137,6 +131,7 @@ export default function () {
     getServerRssNews,
     selectCategory,
     removeArticle,
-    shortDescription
+    shortDescription,
+    formatedDate
   };
 }
