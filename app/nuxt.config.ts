@@ -17,5 +17,14 @@ export default defineNuxtConfig({
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
     }
+  },
+  // Auto-import configuração para composables personalizados
+  imports: {
+    presets: [
+      {
+        from: '~/composables/useConstants',
+        imports: ['useConstants', 'FEED_CATEGORIES']
+      }
+    ]
   }
 })

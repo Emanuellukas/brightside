@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { FEED_CATEGORIES } from './constants';
+import { FEED_CATEGORIES } from '../../composables/useConstants';
 
 const getRouterParams = (url) => {
   const queryString = url.split('?')[1];
