@@ -81,8 +81,7 @@ export const FEED_CATEGORIES = {
   },
 }
 
-// Função para obter categorias ativas
-export const useConstants = () => {
+export const useCategories = () => {
   const getActiveCategories = () => {
     return Object.entries(FEED_CATEGORIES)
       .filter(([_, category]) => category.active)

@@ -20,7 +20,7 @@
   </div>
 </template>
 <script setup lang="js">
-const { FEED_CATEGORIES } = useConstants()
+const { FEED_CATEGORIES } = useCategories()
 const { getServerRssNews, selectCategory } = useNews() 
 
 const getFeedNews = async (category) => {

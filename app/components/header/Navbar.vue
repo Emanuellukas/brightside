@@ -31,7 +31,7 @@
   </div>
 </template>
 <script setup lang="js">
-const { FEED_CATEGORIES } = useConstants()
+const { FEED_CATEGORIES } = useCategories()
 const { state, getServerRssNews, selectCategory } = useNews()
 
 const date = new Date()
