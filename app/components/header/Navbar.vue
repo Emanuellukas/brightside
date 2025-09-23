@@ -31,7 +31,7 @@
   </div>
 </template>
 <script setup lang="js">
-import { FEED_CATEGORIES_URLS } from '~/server/routes/constants.js'
+import { FEED_CATEGORIES } from '~/server/routes/constants.js'
 
 const { state, getServerRssNews, selectCategory } = useNews()
 
@@ -39,12 +39,12 @@ const date = new Date()
 const pad2 = (n) => n.toString().padStart(2, '0')
 const clock = ref({ hour: pad2(date.getHours()), minutes: pad2(date.getMinutes()) })
 
-// Usando as chaves da constante FEED_CATEGORIES_URLS
-const categorias = Object.keys(FEED_CATEGORIES_URLS).map(key => ({
-  name: FEED_CATEGORIES_URLS[key].name,
+// Usando as chaves da constante FEED_CATEGORIES
+const categorias = Object.keys(FEED_CATEGORIES).map(key => ({
+  name: FEED_CATEGORIES[key].name,
   slug: key,
-  color: FEED_CATEGORIES_URLS[key].color,
-  icon: FEED_CATEGORIES_URLS[key].icon
+  color: FEED_CATEGORIES[key].color,
+  icon: FEED_CATEGORIES[key].icon
 }))
 
 const activeCategory = (slug) => {

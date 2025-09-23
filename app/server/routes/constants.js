@@ -1,4 +1,4 @@
-export const FEED_CATEGORIES_URLS = {
+export const FEED_CATEGORIES = {
 	world: {
 		url: 'g1.globo.com/rss/g1/',
 		name: 'Mundo',

@@ -4,23 +4,23 @@
     <FooterButton @click="selectCategory(footerCategories.search)" class="bg-primary dark:bg-sky-900 dark:text-primary-dark border-solid hover:text-yellow-700 hover:bg-secondary
       w-1/3 rounded-l-full rounded-tr-none">
       <div class="flex justify-center">
-        <Icon :name="FEED_CATEGORIES_URLS[footerCategories.search].icon" />
+        <Icon :name="FEED_CATEGORIES[footerCategories.search].icon" />
       </div>
     </FooterButton>
     <FooterButton @click="getFeedNews(footerCategories.home)" class="bg-primary dark:bg-sky-900 dark:text-primary-dark w-1/3 rounded-none hover:bg-secondary hover:text-yellow-700">
       <div class="flex justify-center">
-        <Icon :name="FEED_CATEGORIES_URLS[footerCategories.home].icon"/>
+        <Icon :name="FEED_CATEGORIES[footerCategories.home].icon"/>
       </div>
     </FooterButton>
     <FooterButton @click="getFeedNews(footerCategories.games)" class="bg-primary dark:bg-sky-900 dark:text-primary-dark w-1/3 rounded-r-full rounded-tl-none hover:bg-secondary hover:text-yellow-700">
       <div class="flex justify-center">
-        <Icon :name="FEED_CATEGORIES_URLS[footerCategories.games].icon"/>
+        <Icon :name="FEED_CATEGORIES[footerCategories.games].icon"/>
       </div>
     </FooterButton>
   </div>
 </template>
 <script setup lang="js">
-import { FEED_CATEGORIES_URLS } from '~/server/routes/constants.js'
+import { FEED_CATEGORIES } from '~/server/routes/constants.js'
 
 const { getServerRssNews, selectCategory } = useNews() 
 
