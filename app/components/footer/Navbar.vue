@@ -1,18 +1,17 @@
 <template>
-  <div class="absolute flex items-center stroke-current bottom-[-1rem] left-[50%] text-white w-11/12 md:w-1/4 justify-between" 
-    style="transform: translate(-50%, -50%); ">
+  <div class="absolute flex items-center stroke-current bottom-[1.5rem] left-[1rem] text-white w-11/12 md:w-1/4 justify-between">
     <FooterButton @click="selectCategory(footerCategories.search)" class="bg-primary dark:bg-sky-900 dark:text-primary-dark border-solid hover:text-yellow-700 hover:bg-secondary
       w-1/3 rounded-l-full rounded-tr-none">
       <div class="flex justify-center">
         <Icon :name="FEED_CATEGORIES[footerCategories.search].icon" />
       </div>
     </FooterButton>
-    <FooterButton @click="getFeedNews(footerCategories.home)" class="bg-primary dark:bg-sky-900 dark:text-primary-dark w-1/3 rounded-none hover:bg-secondary hover:text-yellow-700">
+    <FooterButton @click="updateFeedNews(footerCategories.home)" class="bg-primary dark:bg-sky-900 dark:text-primary-dark w-1/3 rounded-none hover:bg-secondary hover:text-yellow-700">
       <div class="flex justify-center">
         <Icon :name="FEED_CATEGORIES[footerCategories.home].icon"/>
       </div>
     </FooterButton>
-    <FooterButton @click="getFeedNews(footerCategories.games)" class="bg-primary dark:bg-sky-900 dark:text-primary-dark w-1/3 rounded-r-full rounded-tl-none hover:bg-secondary hover:text-yellow-700">
+    <FooterButton @click="updateFeedNews(footerCategories.games)" class="bg-primary dark:bg-sky-900 dark:text-primary-dark w-1/3 rounded-r-full rounded-tl-none hover:bg-secondary hover:text-yellow-700">
       <div class="flex justify-center">
         <Icon :name="FEED_CATEGORIES[footerCategories.games].icon"/>
       </div>
@@ -21,17 +20,11 @@
 </template>
 <script setup lang="js">
 const { FEED_CATEGORIES } = useCategories()
-const { getServerRssNews, selectCategory } = useNews() 
+const { selectCategory, updateFeedNews } = useNews() 
 
-const getFeedNews = async (category) => {
-  startSunriseAnimation()
-  getServerRssNews(category)
-}
-
-// Usando as chaves das categorias ao invés de strings hardcoded
 const footerCategories = {
   search: 'gnews',
-  home: 'world', 
+  home: 'sonoticiaboa', 
   games: 'adrenaline'
 }
 

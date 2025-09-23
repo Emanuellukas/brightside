@@ -4,14 +4,15 @@ export const FEED_CATEGORIES = {
     url: 'sonoticiaboa.com.br/feed/rss.xml',
     slug: 'sonoticiaboa',
     name: 'Boas Notícias',
-    color: '#af0934',
-    icon: 'line-md:heart-twotone'
+    color: '#ffb56b',
+    icon: 'line-md:sun-rising-twotone-loop'
+    // icon: 'line-md:heart-twotone'
   },
   flowgames: {
     active: false,
     url: 'flowgames.gg/feed',
-    slug: 'games',
-    name: 'Flow Games',
+    slug: 'flowgames',
+    name: 'Games',
     color: '#22c55e',
     icon: 'game-icons:console-controller'
   },
@@ -19,7 +20,7 @@ export const FEED_CATEGORIES = {
     active: true,
     url: 'www.adrenaline.com.br/games/feed/',
     slug: 'adrenaline',
-    name: 'Adrenaline',
+    name: 'Games',
     color: '#dc2626',
     icon: 'game-icons:console-controller'
   },
@@ -37,7 +38,7 @@ export const FEED_CATEGORIES = {
     slug: 'world',
     name: 'Mundo',
     color: '#3b82f6',
-    icon: 'line-md:sun-rising-loop'
+    icon: 'ix:earth-filled'
   },
   science: {
     active: false,
@@ -69,7 +70,7 @@ export const FEED_CATEGORIES = {
     slug: 'ufology',
     name: 'Ufologia',
     color: '#7c3aed',
-    icon: 'line-md:star-pulsating-loop'
+    icon: 'wi:alien'
   },
   gnews: {
     active: true,
