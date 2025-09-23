@@ -9,7 +9,7 @@ const { state, getServerRssNews } = useNews()
 
 onMounted(() => {
   try {
-    getServerRssNews('sonoticiaboa')
+    getServerRssNews('sonoticiaboa') // usando chave da categoria
   } catch(e) {
     console.error('Erro ao pegar Rss', e)
   }
