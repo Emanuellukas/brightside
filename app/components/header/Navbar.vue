@@ -31,8 +31,7 @@
   </div>
 </template>
 <script setup lang="js">
-import { FEED_CATEGORIES } from '../../server/routes/constants'
-
+const { FEED_CATEGORIES } = useConstants()
 const { state, getServerRssNews, selectCategory } = useNews()
 
 const date = new Date()

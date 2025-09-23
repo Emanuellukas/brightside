@@ -20,8 +20,7 @@
   </div>
 </template>
 <script setup lang="js">
-import { FEED_CATEGORIES } from '~/server/routes/constants.js'
-
+const { FEED_CATEGORIES } = useConstants()
 const { getServerRssNews, selectCategory } = useNews() 
 
 const getFeedNews = async (category) => {
