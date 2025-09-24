@@ -1,14 +1,14 @@
 <template>
   <li :class="'p-6 rounded-3xl bg-yellowSoft dark:bg-secondary-light border-2 border-yellow-600 dark:border-secondary-dark mb-0 h-[95%] w-[95%] relative'">
-    <span class="text-sm font-semibold mb-3 px-2 py-1 bg-slate-600 text-white rounded-full inline-block mr-2">
-      {{ state.currentCategory }}
-    </span>
-    <span class="text-sm font-semibold mb-3 px-2 py-1 bg-black dark:bg-primary-light text-white rounded-full inline-block">
+    <div class="px-2 py-0 text-white text-lg font-bold rounded-full inline-block mr-2" :style="{ backgroundColor: state.currentCategory.color }">
+      <Icon :name="state.currentCategory.icon" class="-mb-1"/>
+    </div>
+    <span class="text-sm font-semibold mb-3 px-2 py-1 bg-secondary dark:bg-primary-light text-white rounded-full inline-block">
       {{ formatedDate(pubDate) }}
     </span>
     <div class="rounded-md py-3 flex justify-between mb-3">
       <div class="flex gap-4">
-        <div class="inline-block h-8 w-8 rounded-full ring-4 ring-white">
+        <div class="inline-flex h-8 w-8 rounded-full ring-4 ring-white">
           <img v-if="!source.image?.url" src="../../assets/images/flower-icon-2048x2048-gydxzqnj.png" alt="Fonte padrão">
           <img v-else :src="source.image?.url" :alt="`Logo de ${source?.title ?? 'fonte'}`" class="min-w-full">
         </div>

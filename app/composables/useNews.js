@@ -1,5 +1,3 @@
-import { FEED_CATEGORIES, useCategories } from "./useCategories";
-
 const ERROR_MESSAGE_FETCH_XML = 'Erro ao buscar XML de notícias.';
 const LOCAL_STORAGE_PREFIX = 'data-';
 const TWO_HOURS_MS = 2 * 60 * 60 * 1000;
@@ -73,21 +71,21 @@ const hasCategoryXml = (category) => {
 }
 
 export default function () {
+  const { getActiveCategories, FEED_CATEGORIES } = useCategories()
+
   const state = useState('news', () => ({
     articles: [],
     source: {},
     loading: true,
-    currentCategory: DEFAULT_CATEGORY,
+    currentCategory: FEED_CATEGORIES[DEFAULT_CATEGORY],
     search: {
       state: false,
       input: ''
     }
   }));
 
-  const { getActiveCategories } = useCategories()
-
   const getServerRssNews = async (category, length = 20, search = '') => {
-    state.value = { ...state.value, articles: [], source: {}, loading: true, currentCategory: category }
+    state.value = { ...state.value, articles: [], source: {}, loading: true, currentCategory: FEED_CATEGORIES[category] }
 
     if (hasCategoryXml(category)) {
       const { content, source } = JSON.parse(localStorage.getItem(`${LOCAL_STORAGE_PREFIX}${category}`));
@@ -121,9 +119,9 @@ export default function () {
     articles.splice(index, 1);
     if(!articles.length) {
       const activeCategories = Object.keys(getActiveCategories());
-      const currentIndex = activeCategories.indexOf(currentCategory);
+      const currentIndex = activeCategories.indexOf(currentCategory.slug);
       const nextCategory = activeCategories[(currentIndex + 1) % activeCategories.length];
-      updateFeedNews(nextCategory)
+      await updateFeedNews(nextCategory)
       return
     }
   }
@@ -135,16 +133,21 @@ export default function () {
   }
 
   const selectCategory = (category) => {
-    state.value.currentCategory = category
+    state.value.currentCategory = FEED_CATEGORIES[category]
+    setTimeout(() => {
+      const el = document.getElementById(category)
+      if (el)
+        el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+    }, 100)
   }
 
   const updateFeedNews = async (category) => {
     startSunriseAnimation()
     selectCategory(category)
-    getServerRssNews(category)
+    await getServerRssNews(category)
   }
 
-  const clearLocalStorage = () => {
+  const clearLocalStorage = async () => {
     Object.keys(getActiveCategories()).forEach(category => {
       localStorage.removeItem(`data-${category}`)
     })
