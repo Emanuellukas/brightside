@@ -10,7 +10,7 @@
           :source="source"
           :initial="getInitial(index)"
           :animate="getAnimate(index)"
-          :drag="'x'"
+          drag
           :whileDrag="{ scale: 1.05, opacity: .9 }"
           :onDragEnd="(_, info) => handleDragEnd(info, index)"
           :style="{ zIndex: articles.length - index }"

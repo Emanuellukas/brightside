@@ -4,7 +4,7 @@ const ERROR_MESSAGE_FETCH_XML = 'Erro ao buscar XML de notícias.';
 const LOCAL_STORAGE_PREFIX = 'data-';
 const TWO_HOURS_MS = 2 * 60 * 60 * 1000;
 const DEFAULT_CATEGORY = 'sonoticiaboa';
-const DEFAULT_MAX_DESCRIPTION = 470;
+const DEFAULT_MAX_DESCRIPTION = 270;
 
 function parseRSS(xmlString) {
   const parser = new DOMParser();
