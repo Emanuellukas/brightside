@@ -22,7 +22,7 @@
         </div>
       </div>
       <a :href="link" target="_blank"
-        class="rounded-full flex font-bold text-white bg-slate-900 dark:bg-primary-light border-2 border-slate-900 dark:border-primary-light px-3 py-1 hover:bg-slate-600 hover:text-slate-300">
+        class="rounded-full flex font-bold text-white bg-secondary dark:bg-primary-light border-2 border-slate-900 dark:border-primary-light px-3 py-1 hover:bg-slate-600 hover:text-slate-300">
         Ler →
       </a>
     </div>
