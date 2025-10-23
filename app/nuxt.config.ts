@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxt/icon",
     "motion-v/nuxt",
-    "@nuxt/image"
+    "@nuxt/image",
+    'nuxt-toast'
   ],
   tailwindcss: {
     exposeConfig: true,
