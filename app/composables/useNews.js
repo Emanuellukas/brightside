@@ -48,20 +48,20 @@ function parseRSS(xmlString) {
   return { source, items };
 }
 
-const saveCategoryXml = (category, { content, source }) => {
-    const payload = { content, source, timestamp: Date.now() }
+const saveCategoryXml = (category, content) => {
+    const payload = { ...content, timestamp: Date.now() }
     localStorage.setItem(`${LOCAL_STORAGE_PREFIX}${category}`, JSON.stringify(payload))
 }
 
 const hasCategoryXml = (category) => {
     const old = JSON.parse(localStorage.getItem(`${LOCAL_STORAGE_PREFIX}${category}`));
 
-  if (!old?.content?.length) return false;
+  if (!old?.articles?.length) return false;
 
   try {
-    const { content, timestamp } = old;
+    const { articles, timestamp } = old;
     if (Date.now() - timestamp <= TWO_HOURS_MS) {
-      return content;
+      return articles;
     }
 
         localStorage.removeItem(`${LOCAL_STORAGE_PREFIX}${category}`);
@@ -77,6 +77,7 @@ export default function () {
 
   const state = useState('news', () => ({
     articles: [],
+    dismissed: [],
     source: {},
     loading: true,
     currentCategory: FEED_CATEGORIES[DEFAULT_CATEGORY],
@@ -87,12 +88,12 @@ export default function () {
   }));
 
   const getServerRssNews = async (category, length = 20, search = '') => {
-    state.value = { ...state.value, articles: [], source: {}, loading: true, currentCategory: FEED_CATEGORIES[category] }
+    state.value = { ...state.value, articles: [], dismissed: [], source: {}, loading: true, currentCategory: FEED_CATEGORIES[category] }
 
     if (hasCategoryXml(category)) {
-      const { content, source } = JSON.parse(localStorage.getItem(`${LOCAL_STORAGE_PREFIX}${category}`));
+      const { articles, dismissed, source } = JSON.parse(localStorage.getItem(`${LOCAL_STORAGE_PREFIX}${category}`));
 
-      state.value = await { ...state.value, articles: [...content.slice(0, length)], source, loading: false };
+      state.value = await { ...state.value, articles: [...articles.slice(0, length)], dismissed, source, loading: false };
       return;
     }
 
@@ -107,7 +108,7 @@ export default function () {
         state.value = await { ...state.value, articles: [...items.slice(0, length)], source, loading: false };
 
         if(category !== 'gnews')
-          saveCategoryXml(category, { content: items, source });
+          saveCategoryXml(category, { articles: items, source, dismissed: [] });
         return
       })
       .catch(error => {
@@ -117,8 +118,13 @@ export default function () {
   };
 
   const removeArticle = async (index) => {
-    const { value: { articles, currentCategory } } = state
+    const { value: { articles, currentCategory, dismissed, source } } = state
+
+    dismissed.push(articles[index])
     articles.splice(index, 1);
+
+    saveCategoryXml(currentCategory.slug, { articles, source, dismissed });
+
     if(!articles.length) {
       const activeCategories = Object.keys(getActiveCategories());
       const currentIndex = activeCategories.indexOf(currentCategory.slug);
@@ -126,6 +132,20 @@ export default function () {
       await updateFeedNews(nextCategory)
       return
     }
+  }
+
+  const returnArticle = () => {
+    const { value: { articles, currentCategory, dismissed, source } } = state
+    const lastDismissedArticle = dismissed[dismissed.length - 1]
+
+    articles.unshift(lastDismissedArticle)
+    dismissed.splice(dismissed.length - 1, 1);
+    saveCategoryXml(currentCategory.slug, { articles, source, dismissed });
+  }
+
+  const hasDismissedArticles = () => {
+    const { value: { dismissed } } = state
+    return !!(dismissed.length)
   }
 
   const shortDescription = (description) => {
@@ -164,6 +184,8 @@ export default function () {
     getServerRssNews,
     selectCategory,
     removeArticle,
+    returnArticle,
+    hasDismissedArticles,
     shortDescription,
     clearLocalStorage
   };
