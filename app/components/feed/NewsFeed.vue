@@ -1,6 +1,6 @@
 <template>
   <div class="flex mt-6 justify-center items-center overflow-hidden feed w-full md:w-1/3 mx-auto">
-    <ul id="list-track" :class="`${state.currentCategory.slug === 'gnews' ? 'h-[63vh]' : 'h-[70vh]'} relative w-full lg:w-3/4`">
+    <ul id="list-track" :class="`${state.currentCategory.slug === 'gnews' ? 'h-[63vh]' : 'h-[75vh]'} absolute w-[90%] top-[17%] left-[50%] transform translate-x-[-50%] lg:w-3/4`">
       <AnimatePresence>
         <MotionFeedNewsCard
           :key="article.guid || article.link || article.title || index"
@@ -76,9 +76,12 @@ html:has(.like){
   background: green;
 }
 
-#list-track li {
-  position: absolute;
-  top: 0;
-  left: 0;
+#list-track {
+  & li {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }
+
 </style>

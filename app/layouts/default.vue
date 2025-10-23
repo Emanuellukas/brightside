@@ -10,7 +10,7 @@
     <div class="relative z-10">
       <div :class="['main', { dark: isNight }]">
         <HeaderNavbar/>
-        <div class="container px-7 mx-auto">
+        <div class="container px-4 mx-auto">
           <UtilsLoader v-if="state.loading" />
           <slot />
         </div>

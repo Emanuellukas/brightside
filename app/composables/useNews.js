@@ -1,3 +1,5 @@
+import useNotifications from "./useNotifications";
+
 const ERROR_MESSAGE_FETCH_XML = 'Erro ao buscar XML de notícias.';
 const LOCAL_STORAGE_PREFIX = 'data-';
 const TWO_HOURS_MS = 2 * 60 * 60 * 1000;
@@ -151,6 +153,8 @@ export default function () {
     Object.keys(getActiveCategories()).forEach(category => {
       localStorage.removeItem(`data-${category}`)
     })
+
+    useNotifications().toast(({ type: 'success', message: 'O cache das notícias foi limpo.' }))
   }
 
   return {
