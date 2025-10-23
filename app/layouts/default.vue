@@ -11,7 +11,7 @@
       <div :class="['main', { dark: isNight }]">
         <HeaderNavbar/>
         <div class="container px-4 mx-auto">
-          <UtilsLoader v-if="state.loading" />
+          <UtilsLoader :isNight="isNight" v-if="state.loading"/>
           <slot />
         </div>
         <FooterNavbar/>
