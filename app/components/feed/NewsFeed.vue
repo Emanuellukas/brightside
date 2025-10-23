@@ -10,7 +10,7 @@
           :source="source"
           :initial="getInitial(index)"
           :animate="getAnimate(index)"
-          drag
+          drag="x"
           :dragConstraints="{ top: -200, bottom: 200, left: -200, right: 200 }"
           :whileDrag="{ scale: 1.05, opacity: .9 }"
           :onDragEnd="(_, info) => handleDragEnd(info, index)"

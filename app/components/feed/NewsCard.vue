@@ -26,10 +26,10 @@
         Ler →
       </a>
     </div>
-    <h2 @click="openArticle" class="conteudo text-grayDark dark:text-sky-900 md:text-clip hover:text-clip font-semibold mb-2">
+    <h2 class="conteudo text-grayDark dark:text-sky-900 md:text-clip hover:text-clip font-semibold mb-2">
       {{ title }}
     </h2>
-    <p @click="openArticle" class="text-grayDark dark:text-sky-800 description" v-html="shortDescription(description)" />
+    <p class="text-grayDark dark:text-sky-800 description" v-html="shortDescription(description)" />
     <slot/>
   </li>
 </template>
