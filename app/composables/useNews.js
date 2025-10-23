@@ -145,7 +145,7 @@ export default function () {
 
   const hasDismissedArticles = () => {
     const { value: { dismissed } } = state
-    return !!(dismissed.length)
+    return dismissed.length !== 0
   }
 
   const shortDescription = (description) => {
