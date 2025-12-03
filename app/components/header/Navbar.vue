@@ -22,7 +22,7 @@
         :key="index" 
         v-for="(cat, index) in activeCategories" 
         @click="setCategory(cat.slug)"
-        :style="{borderColor: cat.color, color: cat.color}"
+        :style="activeCategoryStyle(cat.slug)"
       >
         <Icon :name="cat.icon" class="w-4 h-4" :style="{color: cat.color}" />
         {{ cat.name }}
@@ -46,8 +46,21 @@ const activeCategories = Object.keys(getActiveCategories()).map(key => ({
   icon: FEED_CATEGORIES[key].icon
 }))
 
+const activeCategoryStyle = (slug) => {
+  if(slug === state.value.currentCategory.slug) {
+    return {
+      borderColor: 'inherit',
+      color: FEED_CATEGORIES[slug].color
+    }
+  }
+
+  return {
+    borderColor: FEED_CATEGORIES[slug].color
+  }
+}
+
 const activeCategoryClasses = (slug) => {
-  return state.value.currentCategory.slug === slug ? 'animate-pulse bg-primary dark:bg-slate-900 font-bold' : 'border-2 border-primary'
+  return state.value.currentCategory.slug === slug ? 'animate-pulse bg-primary dark:bg-slate-900 font-bold' : 'border-2 bg-slate-300 dark:bg-slate-700'
 }
 
 const setCategory = (slug) => {
