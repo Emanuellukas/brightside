@@ -8,6 +8,22 @@ export const FEED_CATEGORIES = {
     icon: 'line-md:sun-rising-twotone-loop'
     // icon: 'line-md:heart-twotone'
   },
+  popculture: {
+    active: true,
+    url: 'g1.globo.com/rss/g1/pop-arte',
+    slug: 'popculture',
+    name: 'Cultura Pop',
+    color: '#b735b3',
+    icon: 'game-icons:popcorn'
+  },
+  bizarro: {
+    active: true,
+    url: 'g1.globo.com/rss/g1/planeta-bizarro/',
+    slug: 'bizarro',
+    name: 'Planeta Bizarro',
+    color: '#691e33',
+    icon: 'healthicons:hazardous-24px'
+  },
   omelete: {
     active: false,
     url: 'www.omelete.com.br/sitemap-news.xml',

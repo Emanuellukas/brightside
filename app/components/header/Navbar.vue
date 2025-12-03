@@ -47,20 +47,23 @@ const activeCategories = Object.keys(getActiveCategories()).map(key => ({
 }))
 
 const activeCategoryStyle = (slug) => {
+  const { color } = FEED_CATEGORIES[slug]
+
   if(slug === state.value.currentCategory.slug) {
     return {
       borderColor: 'inherit',
-      color: FEED_CATEGORIES[slug].color
+      color
     }
   }
 
   return {
-    borderColor: FEED_CATEGORIES[slug].color
+    borderColor: color,
+    color,
   }
 }
 
 const activeCategoryClasses = (slug) => {
-  return state.value.currentCategory.slug === slug ? 'animate-pulse bg-primary dark:bg-slate-900 font-bold' : 'border-2 bg-slate-300 dark:bg-slate-700'
+  return state.value.currentCategory.slug === slug ? 'animate-pulse bg-primary dark:bg-slate-900 font-bold' : 'border-2 bg-inherit dark:bg-slate-700'
 }
 
 const setCategory = (slug) => {

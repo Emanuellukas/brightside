@@ -75,8 +75,6 @@ const hasCategoryXml = (category) => {
 export default function () {
   const { getActiveCategories, FEED_CATEGORIES } = useCategories()
 
-  console.log('getActiveCategories', getActiveCategories())
-
   const state = useState('news', () => ({
     articles: [],
     dismissed: [],
