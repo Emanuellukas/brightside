@@ -30,10 +30,10 @@ const searchNews = () => {
     return
   }
 
-  getServerRssNews('gnews', 20, search.value)
+  getServerRssNews({ category: 'gnews', search: search.value, length: 30 })
 }
 
-const activeSearchClasses = () => {
+const activeSearchClasses = () => { 
   const searching = search.value.length
   const formClasses = searching ? 'text-slate-900 border-slate-900' : ''
 

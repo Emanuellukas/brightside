@@ -67,7 +67,7 @@ const setCategory = (slug) => {
   selectCategory(slug)
 
   if(slug !== 'gnews')
-    return getServerRssNews(slug)
+    return getServerRssNews({ category: slug })
 }
 </script>
 <style scoped>

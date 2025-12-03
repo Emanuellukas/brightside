@@ -26,7 +26,7 @@ export const FEED_CATEGORIES = {
   },
   nerd: {
     active: true,
-    url: 'www.einerd.com.br/feed',
+    url: 'www.einerd.com/secao/cinema-tv/feed/',
     slug: 'nerd',
     name: 'Nerd',
     color: '#28c383',

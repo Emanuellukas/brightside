@@ -75,6 +75,8 @@ const hasCategoryXml = (category) => {
 export default function () {
   const { getActiveCategories, FEED_CATEGORIES } = useCategories()
 
+  console.log('getActiveCategories', getActiveCategories())
+
   const state = useState('news', () => ({
     articles: [],
     dismissed: [],
@@ -87,7 +89,7 @@ export default function () {
     }
   }));
 
-  const getServerRssNews = async (category, length = 20, search = '') => {
+  const getServerRssNews = async ({ category, length = 40, search = '' }) => {
     state.value = { ...state.value, articles: [], dismissed: [], source: {}, loading: true, currentCategory: FEED_CATEGORIES[category] }
 
     if (hasCategoryXml(category)) {
@@ -166,7 +168,7 @@ export default function () {
   const updateFeedNews = async (category) => {
     startSunriseAnimation()
     selectCategory(category)
-    await getServerRssNews(category)
+    await getServerRssNews({ category })
   }
 
   const clearLocalStorage = async () => {
